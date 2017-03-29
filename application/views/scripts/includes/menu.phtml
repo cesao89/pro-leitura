@@ -1,0 +1,83 @@
+<div class="header navbar navbar-inverse ">
+    <!-- BEGIN TOP NAVIGATION BAR -->
+    <div class="navbar-inner">
+        <div class="header-quick-nav">
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="pull-left">
+                <!--LOGO-->
+                <ul class="nav quick-section">
+                    <li class="quicklinks">
+                        <a href="<?php echo $this->baseUrl('index'); ?>">
+                            <img src="<?php echo $this->baseUrl('/bundle/assets/img/logo-b.png'); ?>" class="logo"
+                                 alt="" data-src="<?php echo $this->baseUrl('/bundle/assets/img/logo-b.png'); ?>"
+                                 data-src-retina="<?php echo $this->baseUrl('/bundle/assets/img/logo-b2x.png'); ?>"
+                                 width="106" height="21" style="margin: 0 !important;" />
+                        </a>
+                    </li>
+                </ul>
+
+                <!--MENU-->
+                <ul class="nav quick-section">
+                    <li class="quicklinks">
+                        <a href="<?php echo $this->baseUrl('/'); ?>" class="" id="layout-condensed-toggle">Início</a>
+                    </li>
+                    <li class="quicklinks"> <span class="h-seperate"></span></li>
+                    <li class="quicklinks">
+                        <?php if(!isset($this->usuario) || empty($this->usuario) || $this->usuario['id'] < 1){ ?>
+                            <a href="<?php echo $this->baseUrl('/projeto'); ?>" class="">Projetos</a>
+                        <?php } else { ?>
+                            <div class="dropdown" style="padding: 4px 2px !important;">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">Projetos&nbsp;&nbsp;<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?php echo $this->baseUrl('/projeto'); ?>">Listar Projetos</a></li>
+                                    <li><a href="<?php echo $this->baseUrl('/projeto/meus-projetos'); ?>">Meus Projetos</a></li>
+                                    <li class="divider"></li>
+                                    <li><a class="text-success" href="<?php echo $this->baseUrl('/projeto/cadastrar'); ?>">Cadastrar Projeto</a></li>
+                                </ul>
+                            </div>
+                        <?php } ?>
+                    </li>
+                    <li class="quicklinks"> <span class="h-seperate"></span></li>
+                    <li class="quicklinks">
+                        <a href="<?php echo $this->baseUrl('/mapa'); ?>" class="">Mapa</a>
+                    </li>
+                    <li class="quicklinks"> <span class="h-seperate"></span></li>
+                    <li class="quicklinks">
+                        <a href="<?php echo $this->baseUrl('/projeto/cadastro'); ?>" class="">Cadastro</a>
+                    </li>
+                    <li class="quicklinks"> <span class="h-seperate"></span></li>
+                    <li class="quicklinks">
+                        <a href="<?php echo $this->baseUrl('/usuario/cadastro'); ?>" class="">Usuário</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+
+            <!-- BEGIN CHAT TOGGLER -->
+            <div class="pull-right">
+                <ul class="nav quick-section ">
+                    <li class="quicklinks">
+                        <?php if(isset($this->usuario['id']) && !empty($this->usuario['id'])){ ?>
+                            <a data-toggle="dropdown" class="dropdown-toggle  pull-right " href="#" id="user-options">
+                                <?php echo $this->usuario['nome']; ?> &nbsp; <i class="fa fa-chevron-down" aria-hidden="true" style="font-size: 15px !important;"></i>
+                            </a>
+                            <ul class="dropdown-menu  pull-right" role="menu" aria-labelledby="user-options">
+                                <li><a href="<?php echo $this->baseUrl('/usuario/perfil'); ?>"><i class="fa fa-user" aria-hidden="true" ></i>&nbsp;&nbsp;Meu Perfil</a></li>
+                                <li><a href="<?php echo $this->baseUrl('/usuario/editar'); ?>"><i class="fa fa-pencil" aria-hidden="true" ></i>&nbsp;&nbsp;Editar</a></li>
+                                <li class="divider"></li>
+                                <li><a href="<?php echo $this->baseUrl('/usuario/logout'); ?>"><i class="fa fa-power-off" aria-hidden="true" ></i>&nbsp;&nbsp;Sair</a></li>
+                            </ul>
+                        <?php } else { ?>
+                            <a class="pull-right" href="<?php echo $this->baseUrl('/usuario/login'); ?>" id="user-options">
+                                Entrar&nbsp;&nbsp;<i class="fa fa-user aria-hidden="true" style="font-size: 15px !important;"></i>
+                            </a>
+                        <?php } ?>
+                    </li>
+                </ul>
+            </div>
+            <!-- END CHAT TOGGLER -->
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END TOP NAVIGATION BAR -->
+</div>

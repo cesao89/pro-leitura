@@ -1,0 +1,12 @@
+{
+  "name": "cod_it/pro_leitura",
+  "description": "plataforma_pro_leitura",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Cesar O Domingos",
+      "email": "cesar_web@live.com"
+    }
+  ]
+}

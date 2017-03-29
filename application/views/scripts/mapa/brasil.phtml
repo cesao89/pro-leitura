@@ -1,0 +1,151 @@
+<?php
+$regioes_estatos = array(
+    'Região Norte'          => array("ac"=>"Acre", "am"=>"Amazonas", "ap"=>"Amapá", "pa"=>"Pará", "ro"=>"Rondônia", "rr"=>"Roraima", "to"=>"Tocantins"),
+    'Região Nordeste'       => array("al"=>"Alagoas", "ba"=>"Bahia", "ce"=>"Ceará", "ma"=>"Maranhão", "pb"=>"Paraíba", "pe"=>"Pernambuco", "pi"=>"Piauí", "rn"=>"Rio Grande do Norte", "se"=>"Sergipe"),
+    'Região Centro-Oeste'   => array("df"=>"Distrito Federal","go"=>"Goiás","ms"=>"Mato Grosso do Sul","mt"=>"Mato Grosso"),
+    'Região Sudeste'        => array("es"=>"Espírito Santo","mg"=>"Minas Gerais","rj"=>"Rio de Janeiro","sp"=>"São Paulo"),
+    'Região Sul'            => array("pr"=>"Paraná","rs"=>"Rio Grande do Sul","sc"=>"Santa Catarina"),
+);
+?>
+
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border">
+            <div class="row">
+                <div id="container">
+                    <div class="col-md-7">
+                        <div id="brazil-map" style="height: 500px"></div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="combo-map"><h5>Conheça os projetos cadastrados</h5></label>
+                                        <div class="controls">
+                                            <select name="combo-map" id="combo-map" style="width: 100%">
+                                                <option value="">Selecione um estado</option>
+                                                <?php foreach ($regioes_estatos as $regiao => $estados){ ?>
+                                                    <optgroup label="<?php echo $regiao ?>">
+                                                        <?php foreach ($estados as $uf => $estado){ ?>
+                                                            <option value="<?php echo $uf; ?>"><?php echo $estado; ?></option>
+                                                        <?php } ?>
+                                                    </optgroup>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" id="lista-projetos"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function selectList(code) {
+        $("#combo-map").val(code);
+        $("#lista-projetos").html('<p class="center-text"><i class="fa fa-refresh fa-spin fa-3x" aria-hidden="true"></i></p>');
+
+        $.get(baseUrl +"/mapa/regiao-selecionada?regiao="+ code, function (data) {
+            if(data == false){
+                $("#lista-projetos").html('<p>Nenhum projeto encontrado para está região.</p>');
+                return false;
+            }
+
+            var content = '<h5><strong>Clique no nome para saber mais:</strong></h5> <ul>';
+            $.each(data, function (key, val) {
+                content += "<li><a href='"+ baseUrl +"/projeto/detalhes/i/"+ val.id +"'>"+ val.nome +"</a></li>";
+            });
+            content += '</ul>';
+
+            $("#lista-projetos").html(content);
+        });
+    }
+
+    $(function () {
+        var map_settings = {
+            map: 'brazil',
+            container: $('#brazil-map'),
+            zoomButtons: false,
+            zoomMax: 1,
+            regionsSelectable: true,
+            regionsSelectableOne: true,
+            backgroundColor: false,
+            regionStyle: {
+                initial: {
+                    cursor: 'pointer',
+                    stroke: '#FFF',
+                    'stroke-width': 300,
+                    'stroke-opacity': 0.8
+                },
+                hover: { fill: '#a74300' },
+                selected: { fill: '#a74300' }
+            },
+            series: {
+                regions: [{
+                    values: {
+                        // Região Norte
+                        ac: '#EE7600',
+                        am: '#EE7600',
+                        ap: '#EE7600',
+                        pa: '#EE7600',
+                        ro: '#EE7600',
+                        rr: '#EE7600',
+                        to: '#EE7600',
+                        // Região Nordeste
+                        al: '#EE7600',
+                        ba: '#EE7600',
+                        ce: '#EE7600',
+                        ma: '#EE7600',
+                        pb: '#EE7600',
+                        pe: '#EE7600',
+                        pi: '#EE7600',
+                        rn: '#EE7600',
+                        se: '#EE7600',
+                        // Região Centro-Oeste
+                        df: '#EE7600',
+                        go: '#EE7600',
+                        ms: '#EE7600',
+                        mt: '#EE7600',
+                        // Região Sudeste
+                        es: '#EE7600',
+                        mg: '#EE7600',
+                        rj: '#EE7600',
+                        sp: '#EE7600',
+                        // Região Sul
+                        pr: '#EE7600',
+                        rs: '#EE7600',
+                        sc: '#EE7600'
+                    },
+                    attribute: 'fill'
+                }]
+            },
+            onRegionClick: function (event, code) {
+                selectList(code);
+                if (window.localStorage) {
+                    window.localStorage.setItem('jvectormap-selected-regions', JSON.stringify(map.getSelectedRegions()));
+                }
+
+                $("#combo-map").val(code).trigger('change');
+            }
+        };
+
+        map = new jvm.WorldMap($.extend(true, {}, map_settings));
+
+        $('#combo-map').on('change', function() {
+            selectList(this.value);
+            map.clearSelectedRegions();
+            map.setSelectedRegions(this.value);
+        });
+
+        $("#combo-map").select2();
+    });
+</script>

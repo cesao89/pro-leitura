@@ -1,0 +1,14 @@
+<configuration xmlns="http://logging.apache.org/log4php/">
+    <appender name="default" class="LoggerAppenderDailyFile">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{Y-m-d H:i:s,u} [%level] %message %class%n" />
+        </layout>
+        <param name="file" value="/var/log/pro-leitura/proleitura-%s.log" />
+        <param name="datePattern" value="Y-m-d" />
+    </appender>
+
+    <root>
+        <level value="INFO" />
+        <appender_ref ref="default" />
+    </root>
+</configuration>

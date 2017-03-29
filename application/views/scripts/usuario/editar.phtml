@@ -1,0 +1,75 @@
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border">
+            <h4>Informações Gerais</h4>
+        </div>
+        <div class="grid-body no-border">
+            <div class="row">
+                <form action="<?php echo $this->baseUrl('/usuario/save/i/'. $this->id); ?>" method="POST">
+                    <div class="col-md-6">
+                        <?php if($this->usuario['profile'] != 'gestor'){ ?>
+                            <input type="hidden" name="profile_id" value="<?php echo $this->dados['profile_id']; ?>">
+                        <?php } else { ?>
+                            <div class="form-group">
+                                <label class="form-label">Perfil</label>
+                                <div class="controls">
+                                    <select id="profile_id" name="profile_id" style="width:100%">
+                                        <option value="1" <?php echo ($this->dados['profile_id'] == '1') ? " selected='selected'" : null; ?>>Gestor</option>
+                                        <option value="2" <?php echo ($this->dados['profile_id'] == '2') ? " selected='selected'" : null; ?>>Proponente</option>
+                                    </select>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <div class="form-group">
+                            <label class="form-label">Nome Completo</label>
+                            <span class="help">ex. "Luiz O. da Silva"</span>
+                            <div class="controls">
+                                <input class="form-control" id="name" name="name" type="text" required="required" maxlength="200" value="<?php echo $this->dados['name']; ?>">
+                            </div>
+                        </div>
+                        <?php if($this->usuario['profile'] == 'gestor'){ ?>
+                            <div class="form-group">
+                                <label class="form-label">E-mail</label>
+                                <span class="help">ex. "luiz@mail.com"</span>
+                                <div class="controls">
+                                    <input class="form-control" id="email" name="email" type="email" required="required" maxlength="200" value="<?php echo $this->dados['email']; ?>">
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Telefone</label>
+                            <span class="help">ex. "(11) 91234-5678"</span>
+                            <div class="controls">
+                                <input class="form-control" id="phone" name="phone" type="text" required="required" onkeyup="mascara(this, mtel)" maxlength="15" value="<?php echo $this->dados['phone']; ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">CPF</label>
+                            <span class="help">ex. "123.456.789-01"</span>
+                            <div class="controls">
+                                <input class="form-control" id="num_document" name="num_document" type="text" required="required" onkeyup="mascara(this, mcpf)" maxlength="14" value="<?php echo $this->dados['num_document']; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="col-md-6 text-center">
+                        <button type="button" class="btn btn-default" onclick="history.back()" >Voltar</button>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <button type="submit" class="btn btn-success" id="bt-cadastro">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        setTimeout(function () { $('#phone').keyup() }, 100);
+        setTimeout(function () { $('#num_document').keyup() }, 200);
+    });
+</script>

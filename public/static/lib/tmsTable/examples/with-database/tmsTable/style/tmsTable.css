@@ -1,0 +1,62 @@
+/* 
+    Document   : tmsTable
+    Created on : Oct 22, 2013, 10:32:09 AM
+    Author     : Thiago Mallon
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+#box_tmsTable {
+    width: 790px; 
+    height: 300px; 
+    margin: 0 auto; 
+    float: left;
+    margin-top: 50px;
+}
+
+#tmsTable {
+    border-collapse: collapse;
+    min-width: 790px;
+}
+
+#tmsTable th{
+    background: darkred; 
+    border: 1px solid black;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+    color: #fff;
+}    
+
+#tmsTable td {
+    border: 1px solid black;
+    background: gainsboro;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#tmsTable tr:hover td{
+    background: red;
+    color: #fff;
+}
+
+#box_tmsTable_search {
+    width: 790px;     
+}
+
+#box_tmsTable_search_labels, #box_tmsTable_search_fields  {
+    float: left;
+    line-height: 26px;
+}
+
+#box_tmsTable_search_fields {
+
+}
+
+#pTms span {
+    cursor: pointer;
+}

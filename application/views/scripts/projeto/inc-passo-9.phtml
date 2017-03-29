@@ -1,0 +1,67 @@
+<div class="col-xs-12">
+    <div class="col-md-12 well">
+        <h2 style="margin-bottom: 25px">9º Passo - Pessoa Responsável</h2>
+
+        <div class="container col-md-12">
+            <div class="row">
+                <div class="col-md-6" style="padding-left: 0">
+                    <div class="form-group">
+                        <label for="pessoa_responsavel"><h5>Pessoa responsável pelo projeto</h5></label>
+                        <input type="text" class="form-control" id="pessoa_responsavel" name="pessoa_responsavel" maxlength="100"
+                               value="<?php echo $this->project->project_responsible->pessoa_responsavel; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="pessoa_cargo"><h5>Cargo na Organização</h5></label>
+                        <input type="text" class="form-control" id="pessoa_cargo" name="pessoa_cargo" maxlength="100"
+                               value="<?php echo $this->project->project_responsible->pessoa_cargo; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="pessoa_email"><h5>E-mail</h5></label>
+                        <input type="email" class="form-control" id="pessoa_email" name="pessoa_email" maxlength="200"
+                               value="<?php echo $this->project->project_responsible->pessoa_email; ?>">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="pessoa_telefone"><h5>Telefone</h5></label>
+                        <input type="tel" class="form-control" id="pessoa_telefone" name="pessoa_telefone" maxlength="15" onkeyup="mascara(this, mtel)"
+                               value="<?php echo $this->project->project_responsible->pessoa_telefone; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="pessoa_celular"><h5>Celular/WhatsApp</h5></label>
+                        <input type="text" class="form-control" id="pessoa_celular" name="pessoa_celular" maxlength="15" onkeyup="mascara(this, mtel)"
+                               value="<?php echo $this->project->project_responsible->pessoa_celular; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="pessoa_outros"><h5>Outros contatos</h5></label>
+                        <input type="text" class="form-control" id="pessoa_outros" name="pessoa_outros" maxlength="100"
+                               value="<?php echo $this->project->project_responsible->pessoa_outros_contatos; ?>">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTÕES-->
+        <div class="container col-md-12" style="margin-top: 10px">
+            <div class="row">
+                <div class="col-md-4 text-left">
+                    <a href="javascript:;" class="btn btn-primary btn-md activate-step" data-step="8">
+                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                        8º PASSO
+                    </a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="javascript:;" class="btn btn-danger btn-md save">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                        Salvar Rascunho
+                    </a>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="javascript:;" class="btn btn-success btn-md save submit-form">
+                        Enviar&nbsp;&nbsp;<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

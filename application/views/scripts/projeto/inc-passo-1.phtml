@@ -1,0 +1,237 @@
+<div class="col-xs-12">
+    <div class="col-md-12 well">
+        <h2 style="margin-bottom: 25px">1º Passo - Identificação da Experiência</h2>
+
+        <div class="container col-md-8">
+            <div class="col-md-12" style="padding-left: 0">
+                <!-- Titulo -->
+                <div class="form-group">
+                    <label for="nome"><h5>Titulo da experiência</h5></label>
+                    <input type="text" class="form-control" id="nome" name="nome" maxlength="100" value="<?php echo $this->project->nome; ?>">
+                </div>
+            </div>
+
+            <div class="col-md-12" style="padding-left: 0">
+                <!-- Natureza -->
+                <div class="form-group col-md-5" style="padding-left: 0">
+                    <h5>Natureza da experiência</h5>
+                    <div class="radio">
+                        <?php
+                        $arrNatureza = array(
+                            "Formação de mediadores",
+                            "Promoção do acesso ao livro",
+                            "Criação/Aperfeiçoamento de espaços da leitura",
+                            "Formação de leitores",
+                            "Valorização da leitura",
+                            "Outra"
+                        );
+
+                        // IDENTIFICANDO CHECK E DETALHE
+                        $check = null; $outra = null;
+                        if(isset($this->project->natureza)){
+                            if(in_array($this->project->natureza, $arrNatureza)){
+                                foreach ($arrNatureza as $k => $v){
+                                    if($this->project->natureza == $v){
+                                        $check = $k;
+                                    }
+                                }
+                            } else {
+                                $check = count($arrNatureza)-1;
+                                $outra = $this->project->natureza;
+                            }
+                        }
+
+                        // MONTANDO CHECKLIST
+                        foreach ($arrNatureza as $key => $value) { ?>
+                            <?php if($value == 'Outra'){ ?>
+                                <div style="margin-bottom: 5px;" class="clearfix">
+                                <div class="col-md-6" style="padding-left: 0">
+                            <?php } ?>
+
+                            <input type="radio" name="natureza" id="natureza<?php echo $key; ?>" value="<?php echo $value; ?>" <?php echo ($check === $key) ? "checked='checked'" : null; ?>>
+                            <label for="natureza<?php echo $key; ?>" style="font-size: 12px"><?php echo $value; ?></label>
+
+                            <?php  if($value == 'Outra'){ ?>
+                                </div>
+                                <div class="col-md-6" style="padding-left: 0">
+                                    <input type="text" class="input-sm" id="natureza_outra_detalhe" name="natureza_outra_detalhe" maxlength="50"
+                                           value="<?php echo ($outra) ? $outra : null; ?>">
+                                </div>
+                                </div>
+                            <?php } ?>
+                        <?php } ?>
+                    </div>
+                </div>
+
+                <!-- Publico -->
+                <div class="form-group col-md-5" style="padding-left: 0">
+                    <h5>Público</h5>
+                    <div class="radio">
+                        <?php
+                        $arrPublico = array(
+                            "Estudantes",
+                            "Comunidade em geral",
+                            "Trabalhadores",
+                            "População, institucionalizada (presídio, orfanatos, hospitais, asilos etc.)",
+                            "Outra"
+                        );
+
+                        // IDENTIFICANDO CHECK E DETALHE
+                        $checkPublico = null; $outraPublico = null;
+                        if(isset($this->project->publico_atendido)){
+                            if(in_array($this->project->publico_atendido, $arrPublico)){
+                                foreach ($arrPublico as $k => $v){
+                                    if($this->project->publico_atendido == $v){
+                                        $checkPublico = $k;
+                                    }
+                                }
+                            } else {
+                                $checkPublico = count($arrPublico)-1;
+                                $outraPublico = $this->project->publico_atendido;
+                            }
+                        }
+
+                        foreach ($arrPublico as $key => $value) { ?>
+                            <?php if($value == 'Outra'){ ?>
+                                <div style="margin-bottom: 5px;" class="clearfix">
+                                    <div class="col-md-6" style="padding-left: 0">
+                            <?php } ?>
+
+                            <input type="radio" name="publico_alvo" id="publico_alvo<?php echo $key; ?>" value="<?php echo $value; ?>" <?php echo ($checkPublico === $key) ? "checked='checked'" : null; ?>>
+                            <label for="publico_alvo<?php echo $key; ?>" style="font-size: 12px"><?php echo $value; ?></label>
+
+                            <?php if($value == 'Outra'){ ?>
+                                </div>
+                                <div class="col-md-6" style="padding-left: 0">
+                                    <input type="text" class="input-sm" id="publico_alvo_outra_detalhe" name="publico_alvo_outra_detalhe" maxlength="50"
+                                       value="<?php echo ($outraPublico) ? $outraPublico : null; ?>">
+                                </div>
+                                </div>
+                            <?php } ?>
+                        <?php } ?>
+                    </div>
+                </div>
+
+                <!-- Faixa Etária -->
+                <div class="form-group col-md-2" style="padding-left: 0">
+                    <h5>Faixa Etária</h5>
+                    <div class="radio">
+                        <?php
+                        $arrFaixaEtaria = array(
+                            "Todas",
+                            "Infantil",
+                            "Juvenil",
+                            "Adulto",
+                            "Idoso"
+                        );
+                        foreach ($arrFaixaEtaria as $key => $value) {
+                            ?>
+                            <input type="radio" name="faixa_etaria" id="faixa_etaria<?php echo $key; ?>" value="<?php echo $value; ?>" <?php echo ($this->project->faixa_etaria == $value) ? "checked='checked'" : null; ?>>
+                            <label for="faixa_etaria<?php echo $key; ?>" style="font-size: 12px"><?php echo $value; ?></label>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12" style="padding-left: 0">
+                <!-- Diferenciais da experiência -->
+                <div class="form-group">
+                    <label for="diferenciais_experiencia"><h5>Principais diferenciais da experiência</h5></label>
+                    <textarea id="diferenciais_experiencia" name="diferenciais_experiencia" style="width: 100%; height: 70px;" maxlength="200"><?php echo $this->project->diferenciais_experiencia; ?></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="container col-md-4">
+            <!-- Extensão da experiência -->
+            <div class="row">
+                <div class="col-md-12"><h5 style="margin-top: 2px;">Extensão da experiência</h5></div>
+
+                <div class="col-md-6"><label for="iniciado_em">Inicio</label></div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="iniciado_em" name="iniciado_em" placeholder="MM/AAAA" maxlength="7" onkeyup="mascara(this, mmesano)"
+                        value="<?php echo $this->project->vigencia_inicio; ?>">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="finalizado_em">Encerramento&nbsp;&nbsp;
+                        <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Caso já tenha concluído">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        </span>
+                    </label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="finalizado_em" name="finalizado_em" placeholder="MM/AAAA" maxlength="7" onkeyup="mascara(this, mmesano)"
+                        value="<?php echo $this->project->vigencia_fim; ?>">
+                </div>
+            </div>
+
+            <!-- Gênero -->
+            <div class="form-group row">
+                <div class="col-md-12"><h5>Gênero</h5></div>
+
+                <div class="col-md-6">
+                    <div class="checkbox check-default">
+                        <input type="checkbox" name="genero[]" value="feminino" id="feminino" <?php echo (strstr($this->project->gereno, 'feminino')) ? "checked='checked'" : null; ?>>
+                        <label for="feminino">Feminino</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="checkbox check-default">
+                        <input type="checkbox" name="genero[]" value="masculino" id="masculino" <?php echo (strstr($this->project->gereno, 'masculino')) ? "checked='checked'" : null; ?>>
+                        <label for="masculino">Masculino</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pessoas Atendidas -->
+            <div class="form-group row">
+                <div class="col-md-12"><h5>Número de Pessoas Atendidas</h5></div>
+
+                <div class="col-md-6"><label for="atendidos_total">Desde o início</label></div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="atendidos_total" name="atendidos_total" placeholder="0" maxlength="10" onkeyup="mascara(this, mnum)"
+                        value="<?php echo $this->project->atendidos_total; ?>">
+                </div>
+
+                <div class="col-md-6"><label for="atendidos_ultimo_ano">No último ano</label></div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="atendidos_ultimo_ano" name="atendidos_ultimo_ano" placeholder="0" maxlength="10" onkeyup="mascara(this, mnum)"
+                        value="<?php echo $this->project->atendidos_ultimo_ano; ?>">
+                </div>
+
+                <div class="col-md-6"><label for="atendidos_por_acao">Por ação/evento</label></div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="atendidos_por_acao" name="atendidos_por_acao" placeholder="0" maxlength="10" onkeyup="mascara(this, mnum)"
+                        value="<?php echo $this->project->atendidos_por_acao; ?>">
+                </div>
+
+                <div class="col-md-12"><label for="atendidos_detalhes"><h5>Se achar necessário, esclareça</h5></label></div>
+                <div class="col-md-12">
+                    <textarea id="atendidos_detalhes" name="atendidos_detalhes" style="width: 100%; height: 70px;" maxlength="100"><?php echo $this->project->atendidos_detalhes; ?></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTÕES-->
+        <div class="container col-md-12" style="margin-top: 10px">
+            <div class="row">
+                <div class="col-md-4 text-left"></div>
+                <div class="col-md-4 text-center">
+                    <a href="javascript:;" class="btn btn-danger btn-md save">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                        Salvar Rascunho
+                    </a>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="javascript:;" class="btn btn-primary btn-md activate-step" data-step="2">
+                        2º PASSO
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

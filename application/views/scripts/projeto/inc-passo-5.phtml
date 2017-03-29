@@ -1,0 +1,53 @@
+<div class="col-xs-12">
+    <div class="col-md-12 well">
+        <h2 style="margin-bottom: 25px">5º Passo - Metodologias</h2>
+
+        <div class="container col-md-12">
+            <div class="row">
+                <div class="col-md-12" style="padding-left: 0"><h5>Metodologias</h5></div>
+
+                <div class="col-md-12" style="padding-left: 0">
+                    <div class="form-group">
+                        <label for="metodologia_a">
+                            <p>a) Como foi desenvolvido o projeto (principais orientações/diretrizes; passo a passo com principais ações e etapas:</p>
+                        </label>
+                        <textarea id="metodologia_a" name="metodologia_a" style="width: 100%; height: 140px;" maxlength="5000"><?php echo $this->project->project_details->metodologia_a; ?></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-12" style="padding-left: 0">
+                    <div class="form-group">
+                        <label for="metodologia_b">
+                            <p>b) Principais inspirações teóricas e práticas (indique links, nomes de livros/referências bibliográficas, autores, artigos etc.):</p>
+                        </label>
+                        <textarea id="metodologia_b" name="metodologia_b" style="width: 100%; height: 140px;" maxlength="5000"><?php echo $this->project->project_details->metodologia_b; ?></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTÕES-->
+        <div class="container col-md-12" style="margin-top: 10px">
+            <div class="row">
+                <div class="col-md-4 text-left">
+                    <a href="javascript:;" class="btn btn-primary btn-md activate-step" data-step="4">
+                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                        4º PASSO
+                    </a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="javascript:;" class="btn btn-danger btn-md save">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                        Salvar Rascunho
+                    </a>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="javascript:;" class="btn btn-primary btn-md activate-step" data-step="6">
+                        6º PASSO
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

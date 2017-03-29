@@ -1,0 +1,99 @@
+<div class="col-xs-12">
+    <div class="col-md-12 well">
+        <h2 style="margin-bottom: 25px">8º Passo - Organização Responsável</h2>
+
+        <div class="container col-md-12">
+            <div class="row">
+                <div class="col-md-6" style="padding-left: 0">
+                    <div class="form-group">
+                        <label for="organizacao_organizacao"><h5>Nome da Organização responsável pelo projeto</h5></label>
+                        <input type="text" class="form-control" id="organizacao_organizacao" name="organizacao_organizacao" maxlength="100"
+                               value="<?php echo $this->project->project_responsible->organizacao; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="organizacao_cnpj"><h5>CNPJ</h5></label>
+                        <input type="text" class="form-control" id="organizacao_cnpj" name="organizacao_cnpj" maxlength="18" onkeyup="mascara(this, mcnpj)"
+                               value="<?php echo $this->project->project_responsible->cnpj; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="organizacao_email"><h5>E-mail</h5></label>
+                        <input type="email" class="form-control" id="organizacao_email" name="organizacao_email" maxlength="200"
+                               value="<?php echo $this->project->project_responsible->email; ?>">
+                    </div>
+                    <div class="row" style="margin-top:-10px;margin-bottom:-10px">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="organizacao_telefone"><h5>Telefone</h5></label>
+                                <input type="tel" class="form-control" id="organizacao_telefone" name="organizacao_telefone" maxlength="15" onkeyup="mascara(this, mtel)"
+                                       value="<?php echo $this->project->project_responsible->telefone; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="organizacao_celular"><h5>Celular/WhatsApp</h5></label>
+                                <input type="text" class="form-control" id="organizacao_celular" name="organizacao_celular" maxlength="15" onkeyup="mascara(this, mtel)"
+                                       value="<?php echo $this->project->project_responsible->celular; ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="organizacao_outros_contatos"><h5>Outros contatos</h5></label>
+                        <input type="text" class="form-control" id="organizacao_outros_contatos" name="organizacao_outros_contatos" maxlength="100"
+                               value="<?php echo $this->project->project_responsible->outros_contatos; ?>">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="organizacao_cep"><h5>CEP</h5></label>
+                        <input type="text" class="form-control" id="organizacao_cep" name="organizacao_cep" maxlength="9" onkeyup="mascara(this, mcep)"
+                               value="<?php echo $this->project->project_responsible->cep; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="organizacao_estado"><h5>Estado</h5></label>
+                        <input type="text" class="form-control" id="organizacao_estado" name="organizacao_estado" maxlength="2"
+                               value="<?php echo $this->project->project_responsible->uf; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="organizacao_cidade"><h5>Cidade</h5></label>
+                        <input type="text" class="form-control" id="organizacao_cidade" name="organizacao_cidade" maxlength="100"
+                               value="<?php echo $this->project->project_responsible->cidade; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="organizacao_site"><h5>Site da Organização</h5></label>
+                        <input type="text" class="form-control" id="organizacao_site" name="organizacao_site" maxlength="200"
+                               value="<?php echo $this->project->project_responsible->site; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="organizacao_facebook"><h5>Facebook da Organização</h5></label>
+                        <input type="url" class="form-control" id="organizacao_facebook" name="organizacao_facebook" maxlength="200"
+                               value="<?php echo $this->project->project_responsible->facebook; ?>">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTÕES-->
+        <div class="container col-md-12" style="margin-top: 10px">
+            <div class="row">
+                <div class="col-md-4 text-left">
+                    <a href="javascript:;" class="btn btn-primary btn-md activate-step" data-step="7">
+                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                        7º PASSO
+                    </a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="javascript:;" class="btn btn-danger btn-md save">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                        Salvar Rascunho
+                    </a>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="javascript:;" class="btn btn-primary btn-md activate-step" data-step="9">
+                        9º PASSO
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+<div class="col-xs-12">
+    <div class="col-md-12 well">
+        <h2 style="margin-bottom: 25px">4º Passo - Caracteristicas do Projeto</h2>
+
+        <div class="container col-md-12">
+            <div class="row">
+                <div class="col-md-6" style="padding-left: 0">
+                    <!-- Sintese -->
+                    <div class="form-group">
+                        <label for="sintese">
+                            <h5>
+                                Síntese&nbsp;&nbsp;
+                                <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Resumo do projeto">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </span>
+                            </h5>
+                        </label>
+                        <textarea id="sintese" name="sintese" style="width: 100%; height: 140px;" maxlength="500"><?php echo $this->project->project_details->sintese; ?></textarea>
+                    </div>
+
+                    <!-- Caracteristicas -->
+                    <div class="form-group">
+                        <label for="caracteristicas">
+                            <h5>
+                                Características&nbsp;&nbsp;
+                                <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Os diferenciais">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </span>
+                            </h5>
+                        </label>
+                        <textarea id="caracteristicas" name="caracteristicas" style="width: 100%; height: 140px;" maxlength="500"><?php echo $this->project->project_details->caracteristicas; ?></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-6" style="padding-left: 0">
+                    <!-- Objetivos -->
+                    <div class="form-group">
+                        <label for="objetivos">
+                            <h5>
+                                Objetivos Geral e Específicos&nbsp;&nbsp;
+                                <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="O que se pretende (u) atingir/melhorar">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </span>
+                            </h5>
+                        </label>
+                        <textarea id="objetivos" name="objetivos" style="width: 100%; height: 140px;" maxlength="500"><?php echo $this->project->project_details->objetivos; ?></textarea>
+                    </div>
+
+                    <!-- Justificativas -->
+                    <div class="form-group">
+                        <label for="justificativas">
+                            <h5>
+                                Justificativas&nbsp;&nbsp;
+                                <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Porque foi proposto-motivação ou identificação do problema">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </span>
+                            </h5>
+                        </label>
+                        <textarea id="justificativas" name="justificativas" style="width: 100%; height: 140px;" maxlength="500"><?php echo $this->project->project_details->justificativas; ?></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12" style="padding-left: 0">
+                    <!-- Resultado -->
+                    <div class="form-group">
+                        <label for="resultado">
+                            <h5>
+                                Resultados Alcançados&nbsp;&nbsp;
+                                <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Segundo os objetivos apresentados">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </span>
+                            </h5>
+                        </label>
+                        <p>
+                            Mencionar resultados mensuráveis (quantos, o que foi verificado, qual o benefício conquistado etc.)<br />
+                            Como identificou os resultados? Para a premiação poderá ser solicitada a apresentação.
+                        </p>
+                        <textarea id="resultado" name="resultado" style="width: 100%; height: 140px;" maxlength="1000"><?php echo $this->project->project_details->resultado; ?></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTÕES-->
+        <div class="container col-md-12" style="margin-top: 10px">
+            <div class="row">
+                <div class="col-md-4 text-left">
+                    <a href="javascript:;" class="btn btn-primary btn-md activate-step" data-step="3">
+                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                        3º PASSO
+                    </a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="javascript:;" class="btn btn-danger btn-md save">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                        Salvar Rascunho
+                    </a>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="javascript:;" class="btn btn-primary btn-md activate-step" data-step="5">
+                        5º PASSO
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

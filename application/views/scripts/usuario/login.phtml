@@ -1,0 +1,40 @@
+<div class="row login-container column-seperation">
+    <div class="col-md-5 col-md-offset-1">
+        <h2>Conecte-se na <br/> <span style="font-weight: bold">Plataforma Pró-Leitura</span></h2>
+        <p>
+            Dê visibilidade aos seus projetos.
+            <br><br>
+            <a href="<?php echo $this->baseUrl('usuario/cadastro'); ?>">Cadastrar-se</a> agora mesmo, é grátis!
+        </p>
+        <br><br><br>
+    </div>
+    <div class="col-md-5">
+        <br>
+        <form class="login-form validate" id="login-form" method="post" name="login-form">
+            <div class="row">
+                <div class="form-group col-md-10">
+                    <label class="form-label">E-mail</label>
+                    <input class="form-control" id="usuario" name="usuario" type="email" required="required" autofocus="autofocus">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-10">
+                    <label class="form-label">Senha</label> <span class="help"></span>
+                    <input class="form-control" id="senha" name="senha" type="password" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group col-md-10">
+                    <div class="checkbox checkbox check-success">
+                        <a href="<?php echo $this->baseUrl('usuario/esqueci-senha'); ?>">esqueci minha senha</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <button class="btn btn-primary btn-cons pull-right" type="submit">Entrar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

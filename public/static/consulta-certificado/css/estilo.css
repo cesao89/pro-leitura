@@ -1,0 +1,83 @@
+@charset "utf-8";
+@-ms-viewport{
+   zoom: 1.0;
+   width: extend-to-zoom;
+}
+@viewport{
+  zoom: 1.0;
+   width: extend-to-zoom;
+}
+
+body{
+    background-image:url(../imagens/bg_segundavia_mapfre.jpg);
+    margin:0;
+    padding:0;
+    background-size:100%;
+    background-size: cover;
+    background-repeat:no-repeat;
+}
+
+#box_center{
+    background-color:#FFF;
+    width:60%;
+    height:auto;
+    position: absolute;
+    left: 20%;
+    top: 30%;
+
+
+}
+
+.fechar{
+    float:right;
+}
+
+.title_mapfre{
+    padding-left: 30px;
+    margin-top: 90px;
+
+}
+
+.text_1{
+    font-family:Verdana, Geneva, sans-serif;
+    font-size:15px;
+    padding-left: 30px;
+}
+
+.form{
+    width: 100%;
+    padding-left:30px;
+    font-family:Verdana, Geneva, sans-serif;
+    font-size:15px;
+}
+
+.table{
+    width:100%;
+    padding-left:30px;
+}
+
+@media screen and (max-width: 480px){
+    
+    #box_center{
+	width: 100%;
+	left: 0%;
+	top: 20%;
+    }
+    
+}
+
+#box_certificado_inexistente {
+    background: red;
+    border-radius: 5px;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 15px;
+    vertical-align: bottom;
+    color: #fff;
+    padding: 5px;
+    padding-left: 8px;
+    padding-top: 7px;
+    height: 22px;
+    width: 195px;
+    float: right;
+    margin-right: 140px;
+}

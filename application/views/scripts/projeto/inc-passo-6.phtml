@@ -1,0 +1,67 @@
+<div class="col-xs-12">
+    <div class="col-md-12 well">
+        <h2 style="margin-bottom: 25px">6º Passo - Resultados do Projeto</h2>
+
+        <div class="container col-md-12">
+            <div class="row">
+                <div class="col-md-6" style="padding-left: 0">
+                    <div class="form-group">
+                        <label for="avaliacoes"><h5>Já realizou alguma avaliação quantitativa e qualitativa do projeto?<br/>Se sim, explique.</h5></label>
+                        <textarea id="avaliacoes" name="avaliacoes" style="width: 100%; height: 140px;" maxlength="500"><?php echo $this->project->project_details->avaliacoes; ?></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="depoimentos"><h5>Recebeu depoimentos, críticas e/ou comentários de terceiros sobre o projeto? Se sim, indique onde localizar.</h5></label>
+                        <textarea id="depoimentos" name="depoimentos" style="width: 100%; height: 140px;" maxlength="500"><?php echo $this->project->project_details->depoimentos; ?></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="premios"><h5>Recebeu algum prêmio? Se sim, informe qual.</h5></label>
+                        <textarea id="premios" name="premios" style="width: 100%; height: 140px;" maxlength="500"><?php echo $this->project->project_details->premios; ?></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-6" style="padding-left: 0">
+                    <div class="form-group">
+                        <label for="principais_dificuldades"><h5>Principais dificuldades<br/>&nbsp;</h5></label>
+                        <textarea id="principais_dificuldades" name="principais_dificuldades" style="width: 100%; height: 140px;" maxlength="500"><?php echo $this->project->project_details->principais_dificuldades; ?></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dificuldades_superadas"><h5>As dificuldades foram superadas?<br/>Se sim, explique.</h5></label>
+                        <textarea id="dificuldades_superadas" name="dificuldades_superadas" style="width: 100%; height: 140px;" maxlength="500"><?php echo $this->project->project_details->dificuldades_superadas; ?></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="garantir_continuidade"><h5>Como garantir a continuidade do projeto?</h5></label>
+                        <textarea id="garantir_continuidade" name="garantir_continuidade" style="width: 100%; height: 140px;" maxlength="500"><?php echo $this->project->project_details->garantir_continuidade; ?></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTÕES-->
+        <div class="container col-md-12" style="margin-top: 10px">
+            <div class="row">
+                <div class="col-md-4 text-left">
+                    <a href="javascript:;" class="btn btn-primary btn-md activate-step" data-step="5">
+                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                        5º PASSO
+                    </a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="javascript:;" class="btn btn-danger btn-md save">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                        Salvar Rascunho
+                    </a>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="javascript:;" class="btn btn-primary btn-md activate-step" data-step="7">
+                        7º PASSO
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

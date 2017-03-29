@@ -1,0 +1,227 @@
+/* 
+    Document   : tmsTable
+    Created on : Oct 22, 2013, 10:32:09 AM
+    Author     : Thiago Mallon
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* PLACEHOLDER */
+.tmsTable ::-webkit-input-placeholder { color:#414042; }
+.tmsTable input:-moz-placeholder { color:#414042; }
+.tmsTable input:-ms-placeholder { color:#414042; }
+.tmsTable ::-moz-placeholder { color:#414042; opacity: 1 }
+.tmsTable ::-ms-input-placeholder	{ color:#414042; }
+.tmsTable :-ms-input-placeholder	{ color:#414042; }
+/***** FIM PLACEHOLDER *****/
+
+table, tr, td, th, tbody, thead, tfoot {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-collapse: collapse;
+    border-spacing: 0 !important;
+    background-image: none;
+}
+
+th, td {
+    text-align: center;
+}
+
+thead img {
+    margin: 0 0 0 10px;
+    padding: 0;
+}
+
+#box_tmsTable {
+    margin: 0;
+    padding: 0;
+}
+
+.box_selected_tmsTable {
+    display: inline-table;
+    width: 99.1%;
+    margin: 0 0 30px 0;
+    padding: 10px 0.5%;
+    background-color: #dcddde;
+}
+
+.label_tmsTable {
+    float: left;    
+    margin: 1px 0 0 0;
+    padding: 5px;
+    font-family: 'NeoSansPro';
+    font-size: 14px;
+    color: #424142;
+    font-weight: normal;
+    font-style: normal; 
+}
+
+.iTms {
+    display: inline-block;
+    margin: 0;
+    *margin: 3px 0 0 0;
+    padding: 5px;
+    background-color: #ffffff;
+    border: 1px solid #abaeb3;
+    font-family: 'NeoSansPro';
+    font-size: 14px;
+    color: #eb2327;
+    font-weight: normal;
+    font-style: normal;     
+}
+
+.tmsTable {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.tmsTable th {
+    font-family: 'NeoSansPro';
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: normal;
+    font-style: normal;
+    margin: 0;
+    padding: 10px 0 10px 10px;
+    text-align: left;
+    background-color: #eb2727;
+    border-right: 1px solid #ffffff;
+    cursor: pointer;
+}
+
+.tmsTable th:last-child {
+    border-left: none;
+}
+
+.tmsTable tr {   
+    -webkit-transition: background 200ms ease-in-out;
+    -moz-transition: background 200ms ease-in-out;
+    -ms-transition: background 200ms ease-in-out;
+    -o-transition: background 200ms ease-in-out;
+    transition: background 200ms ease-in-out;    
+}
+
+.tmsTable tbody tr:hover {  
+    background-color: #cfcfcf;
+    -webkit-transition: background 200ms ease-in-out;
+    -moz-transition: background 200ms ease-in-out;
+    -ms-transition: background 200ms ease-in-out;
+    -o-transition: background 200ms ease-in-out;
+    transition: background 200ms ease-in-out;    
+}
+
+.tmsTable td {
+    font-family: 'NeoSansPro';
+    font-size: 14px;
+    color: #414042;
+    font-weight: normal;
+    font-style: normal;
+    margin: 0;
+    padding: 5px 10px 5px 10px;
+    text-align: left;
+    border-right: 1px solid #cfcfcf;
+    border-bottom: 1px solid #cfcfcf;  
+}
+
+.tmsTable td img {
+    margin: 0 10px 0 0;
+}
+
+.tmsTable td:last-child {
+    border-right: none;
+}
+
+#pTms {
+    display: table;
+    margin: 30px 0 0 0;
+    padding: 0;
+}
+
+#pTms span {
+    display: inline-block;
+    width: 29px;
+    height: 29px;
+    line-height: 29px;
+    font-family: 'NeoSansPro';
+    font-size: 14px;
+    color: #414042;
+    font-weight: normal;
+    font-style: normal;    
+    margin: 0 10px 10px 0;
+    padding: 0;
+    background-color: #cfcfd0;
+    cursor: pointer;
+    text-align: center;
+    -webkit-transition: background 200ms ease-in-out;
+    -moz-transition: background 200ms ease-in-out;
+    -ms-transition: background 200ms ease-in-out;
+    -o-transition: background 200ms ease-in-out;
+    transition: background 200ms ease-in-out;    
+}
+
+#pTms span:hover {
+    color: #fff;
+    background-color: #eb2327;
+    -webkit-transition: background 200ms ease-in-out;
+    -moz-transition: background 200ms ease-in-out;
+    -ms-transition: background 200ms ease-in-out;
+    -o-transition: background 200ms ease-in-out;
+    transition: background 200ms ease-in-out;    
+}
+
+.paginacao_ativa {
+    display: inline-block;
+    width: 29px;
+    height: 29px;
+    line-height: 29px;
+    font-family: 'NeoSansPro';
+    font-size: 14px;
+    color: #fff !important;
+    font-weight: normal;
+    font-style: normal;    
+    margin: 0 10px 10px 0;
+    padding: 0;
+    background-color: #eb2327 !important;
+    text-align: center;
+}
+
+.tmsTable input {
+    width: 70%;
+    margin: 0 10px 0 0;
+    padding: 5px 10px;
+    background-color: #ffffff;
+    border: 1px solid #abaeb3;
+    font-family: 'NeoSansPro';
+    font-size: 14px;
+    color: #eb2327;
+    font-weight: normal;
+    font-style: normal; 
+}
+
+.tmsTable select {
+    width: 70%;
+    margin: 0 10px 0 0;
+    padding: 5px 10px;
+    background-color: #ffffff;
+    border: 1px solid #abaeb3;
+    font-family: 'NeoSansPro';
+    font-size: 14px;
+    color: #eb2327;
+    font-weight: normal;
+    font-style: normal; 
+}
+
+.tmsSearch {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 0 10px 0 !important;
+    cursor: default !important;
+}
+
+.tmsSearch:hover {
+    background-color: transparent !important;
+}
+

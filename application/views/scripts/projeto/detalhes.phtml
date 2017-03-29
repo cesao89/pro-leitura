@@ -1,0 +1,620 @@
+<!-- PASSO 1 -->
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border"><h4>Identificação da Experiência</h4></div>
+
+        <div class="grid-body no-border">
+            <div class="row-fluid">
+                <div class="col-md-12">
+                    <div class="container col-md-8">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="form-group">
+                                <h5>Titulo da experiência</h5>
+                                <p><?php echo $this->project->nome; ?></p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="padding-left: 0">
+                            <!-- Natureza -->
+                            <div class="form-group col-md-5" style="padding-left: 0">
+                                <h5>Natureza da experiência</h5>
+                                <p><?php echo $this->project->natureza; ?></p>
+                            </div>
+
+                            <!-- Publico -->
+                            <div class="form-group col-md-5" style="padding-left: 0">
+                                <h5>Público</h5>
+                                <p><?php echo $this->project->publico_atendido;?></p>
+                            </div>
+
+                            <!-- Faixa Etária -->
+                            <div class="form-group col-md-2" style="padding-left: 0">
+                                <h5>Faixa Etária</h5>
+                                <p><?php echo $this->project->faixa_etaria; ?></p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="padding-left: 0">
+                            <!-- Diferenciais da experiência -->
+                            <div class="form-group">
+                                <h5>Principais diferenciais da experiência</h5>
+                                <p><?php echo nl2br($this->project->diferenciais_experiencia); ?></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container col-md-4">
+                        <!-- Extensão da experiência -->
+                        <div class="row">
+                            <div class="col-md-12"><h5 style="margin-top: 2px;">Extensão da experiência</h5></div>
+
+                            <div class="col-md-6">Inicio</div>
+                            <div class="col-md-6"><?php echo $this->project->vigencia_inicio; ?></div>
+
+                            <div class="col-md-6">
+                                Encerramento&nbsp;&nbsp;
+                                <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Caso já tenha concluído">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="col-md-6"><?php echo $this->project->vigencia_fim; ?></div>
+                        </div>
+
+                        <!-- Gênero -->
+                        <div class="form-group row">
+                            <div class="col-md-12"><h5>Gênero</h5></div>
+                            <div class="col-md-12"><?php echo $this->project->gereno; ?></div>
+                        </div>
+
+                        <!-- Pessoas Atendidas -->
+                        <div class="form-group row">
+                            <div class="col-md-12"><h5>Número de Pessoas Atendidas</h5></div>
+
+                            <div class="col-md-6">Desde o início</div>
+                            <div class="col-md-6"><?php echo $this->project->atendidos_total; ?></div>
+
+                            <div class="col-md-6">No último ano</div>
+                            <div class="col-md-6"><?php echo $this->project->atendidos_ultimo_ano; ?></div>
+
+                            <div class="col-md-6">Por ação/evento</div>
+                            <div class="col-md-6"><?php echo $this->project->atendidos_por_acao; ?></div>
+
+                            <div class="col-md-12"><h5>Se achar necessário, esclareça</h5></div>
+                            <div class="col-md-12"><p><?php echo nl2br($this->project->atendidos_detalhes); ?></p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PASSO 2 -->
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border"><h4>Expecitativas e Localização</h4></div>
+        <div class="grid-body no-border">
+            <div class="row-fluid">
+                <div class="col-md-12">
+                    <div class="container col-md-12">
+                        <div class="row">
+                            <!-- Abrangência e Localização-->
+                            <div class="col-md-8" style="padding-left: 0">
+                                <h5>Abrangência e Logalização</h5>
+
+                                <div class="row">
+                                    <!-- Territorio -->
+                                    <div class="col-md-6">
+                                        <h5>Território</h5>
+                                        <div class="form-group"><?php echo $this->project->localizacao_territorio; ?></div>
+                                    </div>
+
+                                    <!-- Regional -->
+                                    <div class="col-md-6">
+                                        <h5>Regional</h5>
+                                        <?php echo $this->project->localizacao_regional; ?>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Estado -->
+                                    <div class="col-md-6" style="margin-bottom: 20px">
+                                        <h5>Estados</h5>
+                                        <?php for ($i=0; $i < count($this->project->localizacao_estado); $i++){ if($i != 0){ echo ", "; } echo $this->project->localizacao_estado[$i]; } ?>
+                                    </div>
+
+                                    <!-- Cidades -->
+                                    <div class="col-md-6" style="margin-bottom: 20px">
+                                        <h5>Cidades</h5>
+                                        <?php for ($i=0; $i < count($this->project->localizacao_cidade); $i++){ if($i != 0){ echo ", "; } echo $this->project->localizacao_cidade[$i]; } ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Expectativas -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <h5>Expectativas com o Cadastro do Projeto</h5>
+                                    <?php
+                                    foreach ($this->project->projeto_expectativa as $row){
+                                        if($row->expectativa == 'Outra'){ $outraValue = $row->detalhe; }?>
+
+                                        <div style="margin-bottom: 5px;" class="clearfix">
+                                            <div class="<?php echo ($row->expectativa == 'Outra') ? "col-md-3" : "col-md-12"; ?>" style="padding-left: 0">
+                                                <?php
+                                                    echo $row->expectativa;
+                                                    echo ($row->expectativa == 'Outra') ? ': ' : null;
+                                                ?>
+                                            </div>
+                                            <?php if($row->expectativa == 'Outra'){ ?>
+                                                <div class="col-md-9" style="padding-left: 0"><?php echo $outraValue; ?></div>
+                                            <?php } ?>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PASSO 3 -->
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border"><h4>Instituições e Parcerias</h4></div>
+        <div class="grid-body no-border">
+            <div class="row-fluid">
+                <div class="container col-md-12">
+                    <div class="row">
+                        <!-- Nome da Organização/Instituição -->
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="form-group">
+                                <h5>Organização/Instituição que promove/realiza o projeto?</h5>
+                                <?php echo $this->project->organizacao_nome; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Categoria da Organização/Instituição -->
+                        <div class="col-md-5" style="padding-left: 0">
+                            <div class="form-group" style="padding-left: 0">
+                                <h5>Em qual categoria(s) se enquadra essa Organização?</h5>
+                                <?php
+                                foreach ($this->project->organizacao_categoria as $row) {
+                                    if ($row->categoria == 'Órgão público' || $row->categoria == 'Outra') {
+                                        ?>
+                                        <div style="margin-bottom: 5px;" class="clearfix">
+                                            <div class="col-md-6" style="padding-left: 0"><?php echo $row->categoria; ?>:</div>
+                                            <div class="col-md-6" style="padding-left: 0"><?php echo $row->detalhe; ?></div>
+                                        </div>
+                                        <?php
+                                    } else {
+                                        echo $row->categoria;
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </div>
+
+                        <!-- Parcerias e Apoios -->
+                        <div class="col-md-7">
+                            <div class="form-group" style="padding-left: 0">
+                                <h5>
+                                    Parcerias e Apoios&nbsp;&nbsp;
+                                    <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Se estabeleceu parcerias para realizar o projeto, informe apoio e o nome instituição.">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </span>
+                                </h5>
+
+                                <!-- Patrocinio -->
+                                <div style="margin-bottom: 5px;" class="clearfix">
+                                    <div class="col-md-3" style="padding-left: 0">Patrocínio</div>
+                                    <div class="col-md-3" style="padding-left: 0"><?php echo $this->project->organizacao_parceiros->patrocinio_percentual; ?>%</div>
+                                    <div class="col-md-6" style="padding-left: 0"><?php echo $this->project->organizacao_parceiros->patrocinio; ?></div>
+                                </div>
+
+                                <!-- Apoio Tecnico -->
+                                <div style="margin-bottom: 5px;" class="clearfix">
+                                    <div class="col-md-3" style="padding-left: 0">Apoio técnico <sub>(acessoria/consultoria)</sub></div>
+                                    <div class="col-md-9" style="padding-left: 0"><?php echo $this->project->organizacao_parceiros->apoio_tecnico; ?></div>
+                                </div>
+
+                                <!-- Apoio Institucional -->
+                                <div style="margin-bottom: 5px;" class="clearfix">
+                                    <div class="col-md-3" style="padding-left: 0">Apoio institucional</div>
+                                    <div class="col-md-9" style="padding-left: 0"><?php echo $this->project->organizacao_parceiros->apoio_institucional; ?></div>
+                                </div>
+
+                                <!-- Outros -->
+                                <div style="margin-bottom: 5px;" class="clearfix">
+                                    <div class="col-md-3" style="padding-left: 0">Outros</div>
+                                    <div class="col-md-9" style="padding-left: 0"><?php echo $this->project->organizacao_parceiros->outros; ?></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Equipe do Projeto -->
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="form-group">
+                                <h5>Equipe do Projeto</h5>
+                                <div class="row">
+                                    <?php
+                                    $arrTeam = array(
+                                        'equipe_coordenador' => 'Coordenador(es)',
+                                        'equipe_professor' => 'Professor(es)',
+                                        'equipe_educador' => 'Educador(es)',
+                                        'equipe_bibliotecario' => 'Bibliotecário(s)',
+                                        'equipe_voluntario' => 'Volunário(s)',
+                                        'equipe_mediador' => 'Agente(s)/Mediador(es) de leitura',
+                                        'equipe_outros' => 'Outro(s)',
+                                    );
+
+                                    foreach ($arrTeam as $key => $value){
+                                        $qtdEquipe = 0;
+                                        $detalheEquipe = null;
+                                        foreach ($this->project->project_team as $row){
+                                            if($row->equipe == $key){
+                                                $qtdEquipe = $row->quantidade;
+                                                $detalheEquipe = $row->detalhe;
+                                            }
+                                        }
+                                        ?>
+                                        <div class="col-md-3" style="padding-left: 0">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <?php echo "(". $qtdEquipe .") "; ?>
+                                                    <?php echo ($key == 'equipe_outros') ? $detalheEquipe : $value; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PASSO 4 -->
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border"><h4>Caracteristicas do Projeto</h4></div>
+        <div class="grid-body no-border">
+            <div class="row-fluid">
+                <div class="container col-md-12">
+                    <div class="row">
+                        <div class="col-md-6" style="padding-left: 0">
+                            <!-- Sintese -->
+                            <div class="form-group">
+                                <h5>
+                                    Síntese&nbsp;&nbsp;
+                                    <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Resumo do projeto">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </span>
+                                </h5>
+                                <p><?php echo nl2br($this->project->project_details->sintese); ?></p>
+                            </div>
+
+                            <!-- Caracteristicas -->
+                            <div class="form-group">
+                                <h5>
+                                        Características&nbsp;&nbsp;
+                                        <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Os diferenciais">
+                                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                        </span>
+                                    </h5>
+                                <p><?php echo nl2br($this->project->project_details->caracteristicas); ?></p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" style="padding-left: 0">
+                            <!-- Objetivos -->
+                            <div class="form-group">
+                                <h5>
+                                    Objetivos Geral e Específicos&nbsp;&nbsp;
+                                    <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="O que se pretende (u) atingir/melhorar">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </span>
+                                </h5>
+                                <p><?php echo nl2br($this->project->project_details->objetivos); ?></p>
+                            </div>
+
+                            <!-- Justificativas -->
+                            <div class="form-group">
+                                <h5>
+                                    Justificativas&nbsp;&nbsp;
+                                    <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Porque foi proposto-motivação ou identificação do problema">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </span>
+                                </h5>
+                                <p><?php echo nl2br($this->project->project_details->justificativas); ?></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <!-- Resultado -->
+                            <div class="form-group">
+                                <h5>
+                                    Resultados Alcançados&nbsp;&nbsp;
+                                    <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Segundo os objetivos apresentados">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </span>
+                                </h5>
+                                <p>
+                                    Mencionar resultados mensuráveis (quantos, o que foi verificado, qual o benefício conquistado etc.)<br />
+                                    Como identificou os resultados? Para a premiação poderá ser solicitada a apresentação.
+                                </p>
+                                <p><?php echo nl2br($this->project->project_details->resultado); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PASSO 5 -->
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border"><h4>Metodologias</h4></div>
+        <div class="grid-body no-border">
+            <div class="row-fluid">
+                <div class="container col-md-12">
+                    <div class="row">
+                        <div class="col-md-12" style="padding-left: 0"><h5>Metodologias</h5></div>
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="form-group">
+                                <p>a) Como foi desenvolvido o projeto (principais orientações/diretrizes; passo a passo com principais ações e etapas:</p>
+                                <p><?php echo nl2br($this->project->project_details->metodologia_a); ?></p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="form-group">
+                                <p>b) Principais inspirações teóricas e práticas (indique links, nomes de livros/referências bibliográficas, autores, artigos etc.):</p>
+                                <?php echo nl2br($this->project->project_details->metodologia_b); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PASSO 6 -->
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border"><h4>Resultados do Projeto</h4></div>
+        <div class="grid-body no-border">
+            <div class="row-fluid">
+                <div class="container col-md-12">
+                    <div class="row">
+                        <div class="col-md-6" style="padding-left: 0">
+                            <div class="form-group">
+                                <h5>Já realizou alguma avaliação quantitativa e qualitativa do projeto?<br/>Se sim, explique.</h5>
+                                <p><?php echo nl2br($this->project->project_details->avaliacoes); ?></p>
+                            </div>
+
+                            <div class="form-group">
+                                <h5>Recebeu depoimentos, críticas e/ou comentários de terceiros sobre o projeto? Se sim, indique onde localizar.</h5>
+                                <p><?php echo nl2br($this->project->project_details->depoimentos); ?></p>
+                            </div>
+
+                            <div class="form-group">
+                                <h5>Recebeu algum prêmio? Se sim, informe qual.</h5>
+                                <p><?php echo nl2br($this->project->project_details->premios); ?></p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" style="padding-left: 0">
+                            <div class="form-group">
+                                <h5>Principais dificuldades<br/>&nbsp;</h5>
+                                <p><?php echo nl2br($this->project->project_details->principais_dificuldades); ?></p>
+                            </div>
+
+                            <div class="form-group">
+                                <h5>As dificuldades foram superadas?<br/>Se sim, explique.</h5>
+                                <p><?php echo nl2br($this->project->project_details->dificuldades_superadas); ?></p>
+                            </div>
+
+                            <div class="form-group">
+                                <h5>Como garantir a continuidade do projeto?</h5>
+                                <p><?php echo nl2br($this->project->project_details->garantir_continuidade); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PASSO 7 -->
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border"><h4>Registros do Projeto</h4></div>
+        <div class="grid-body no-border">
+            <div class="row-fluid">
+                <div class="container col-md-12">
+                    <div class="row">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="form-group">
+                                <h5>Site do Projeto</h5>
+                                <a href="<?php echo $this->project->project_details->site; ?>" target="_blank"><?php echo $this->project->project_details->site; ?></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6" style="padding-left: 0">
+                            <div class="form-group">
+                                <h5>
+                                    Redes Sociais&nbsp;&nbsp;
+                                    <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Facebook, Instagram, Twitter etc.">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </span>
+                                </h5>
+                                <sup>Cadastre cada link por linha</sup>
+                                <p><?php echo nl2br($this->project->project_details->redes_sociais); ?></p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" style="padding-left: 0">
+                            <div class="form-group">
+                                <h5>
+                                    Tem registros do projeto? Se sim, onde acessar?&nbsp;&nbsp;
+                                    <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Fotos e vídeos do projeto">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </span>
+                                </h5>
+                                <sup>Cadastre cada link por linha</sup>
+                                <p><?php echo nl2br($this->project->project_details->fotos_videos); ?></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="form-group">
+                                <h5>
+                                    Tem alguma informação adicional que queira fornecer e que não foi contemplada nas anteriores?&nbsp;&nbsp;
+                                    <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Pode escrever ou colar links">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </span>
+                                </h5>
+                                <p><?php echo nl2br($this->project->project_details->adicional); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PASSO 8 -->
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border"><h4>Organização Responsável</h4></div>
+        <div class="grid-body no-border">
+            <div class="row-fluid">
+                <div class="container col-md-12">
+                    <div class="row">
+                        <div class="col-md-6" style="padding-left: 0">
+                            <div class="form-group">
+                                <h5>Nome da Organização responsável pelo projeto</h5>
+                                <?php echo $this->project->project_responsible->organizacao; ?>
+                            </div>
+                            <div class="form-group">
+                                <h5>CNPJ</h5>
+                                <?php echo $this->project->project_responsible->cnpj; ?>
+                            </div>
+                            <div class="form-group">
+                                <h5>E-mail</h5>
+                                <a href="mailto:<?php echo $this->project->project_responsible->email; ?>"><?php echo $this->project->project_responsible->email; ?></a>
+                            </div>
+                            <div class="row" style="margin-top:-10px;margin-bottom:-10px">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <h5>Telefone</h5>
+                                        <?php echo $this->project->project_responsible->telefone; ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <h5>Celular/WhatsApp</h5>
+                                        <?php echo $this->project->project_responsible->celular; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h5>Outros contatos</h5>
+                                <?php echo $this->project->project_responsible->outros_contatos; ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h5>CEP</h5>
+                                <?php echo $this->project->project_responsible->cep; ?>
+                            </div>
+                            <div class="form-group">
+                                <h5>Estado</h5>
+                                <?php echo $this->project->project_responsible->uf; ?>
+                            </div>
+                            <div class="form-group">
+                                <h5>Cidade</h5>
+                                <?php echo $this->project->project_responsible->cidade; ?>
+                            </div>
+                            <div class="form-group">
+                                <h5>Site da Organização</h5>
+                                <a href="<?php echo $this->project->project_responsible->site; ?>" target="_blank"><?php echo $this->project->project_responsible->site; ?></a>
+                            </div>
+                            <div class="form-group">
+                                <h5>Facebook da Organização</h5>
+                                <a href="<?php echo $this->project->project_responsible->facebook; ?>" target="_blank"><?php echo $this->project->project_responsible->facebook; ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PASSO 9 -->
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border"><h4>Pessoa Responsável</h4></div>
+        <div class="grid-body no-border">
+            <div class="row-fluid">
+                <div class="container col-md-12">
+                    <div class="row">
+                        <div class="col-md-6" style="padding-left: 0">
+                            <div class="form-group">
+                                <h5>Pessoa responsável pelo projeto</h5>
+                                <?php echo $this->project->project_responsible->pessoa_responsavel; ?>
+                            </div>
+                            <div class="form-group">
+                                <h5>Cargo na Organização</h5>
+                                <?php echo $this->project->project_responsible->pessoa_cargo; ?>
+                            </div>
+                            <div class="form-group">
+                                <h5>E-mail</h5>
+                                <a href="mailto:<?php echo $this->project->project_responsible->pessoa_email; ?>"><?php echo $this->project->project_responsible->pessoa_email; ?></a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h5>Telefone</h5>
+                                <?php echo $this->project->project_responsible->pessoa_telefone; ?>
+                            </div>
+                            <div class="form-group">
+                                <h5>Celular/WhatsApp</h5>
+                                <?php echo $this->project->project_responsible->pessoa_celular; ?>
+                            </div>
+                            <div class="form-group">
+                                <h5>Outros contatos</h5>
+                                <?php echo $this->project->project_responsible->pessoa_outros_contatos; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

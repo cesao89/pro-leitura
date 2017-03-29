@@ -1,0 +1,88 @@
+<div class="col-xs-12">
+    <div class="col-md-12 well">
+        <h2 style="margin-bottom: 25px">7º Passo - Registros do Projeto</h2>
+
+        <div class="container col-md-12">
+            <div class="row">
+                <div class="col-md-12" style="padding-left: 0">
+                    <div class="form-group">
+                        <label for="site"><h5>Site do Projeto</h5></label>
+                        <input type="url" class="form-control" id="site" name="site" placeholder="http://" maxlength="500"
+                            value="<?php echo $this->project->project_details->site; ?>">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6" style="padding-left: 0">
+                    <div class="form-group">
+                        <label for="redes_sociais">
+                            <h5>
+                                Redes Sociais&nbsp;&nbsp;
+                                <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Facebook, Instagram, Twitter etc.">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </span>
+                            </h5>
+                            <sup>Cadastre cada link por linha</sup>
+                        </label>
+                        <textarea id="redes_sociais" name="redes_sociais" style="width: 100%; height: 140px;" maxlength="1000"><?php echo $this->project->project_details->redes_sociais; ?></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding-left: 0">
+                    <div class="form-group">
+                        <label for="fotos_videos">
+                            <h5>
+                                Tem registros do projeto? Se sim, onde acessar?&nbsp;&nbsp;
+                                <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Fotos e vídeos do projeto">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </span>
+                            </h5>
+                            <sup>Cadastre cada link por linha</sup>
+                        </label>
+                        <textarea id="fotos_videos" name="fotos_videos" style="width: 100%; height: 140px;" maxlength="1000"><?php echo $this->project->project_details->fotos_videos; ?></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12" style="padding-left: 0">
+                    <div class="form-group">
+                        <label for="adicional">
+                            <h5>
+                                Tem alguma informação adicional que queira fornecer e que não foi contemplada nas anteriores?&nbsp;&nbsp;
+                                <span class="my-tooltip" data-toggle="tooltip" data-placement="top" title="Pode escrever ou colar links">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </span>
+                            </h5>
+                        </label>
+                        <textarea id="adicional" name="adicional" style="width: 100%; height: 140px;" maxlength="5000"><?php echo $this->project->project_details->adicional; ?></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTÕES-->
+        <div class="container col-md-12" style="margin-top: 10px">
+            <div class="row">
+                <div class="col-md-4 text-left">
+                    <a href="javascript:;" class="btn btn-primary btn-md activate-step" data-step="6">
+                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                        6º PASSO
+                    </a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="javascript:;" class="btn btn-danger btn-md save">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                        Salvar Rascunho
+                    </a>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="javascript:;" class="btn btn-primary btn-md activate-step" data-step="8">
+                        8º PASSO
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

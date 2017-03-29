@@ -1,0 +1,48 @@
+<div class="col-md-12">
+    <div class=" tiles white col-md-12 no-padding">
+        <div class="tiles white">
+            <div class="row">
+                <div class="col-md-9 user-description-box  col-sm-9">
+                    <h4 class="semi-bold no-margin"><?php echo $this->profile['nome']; ?></h4>
+                    <h6 class="no-margin"><?php echo $this->profile['email']; ?></h6>
+                    <br>
+                    <p><i class="fa fa-calendar"></i><?php echo $this->profile['cadastrado']; ?></p>
+                    <p><i class="fa fa-refresh"></i><?php echo $this->profile['atualizado']; ?></p>
+                    <p><i class="fa fa-phone"></i><?php echo $this->profile['telefone']; ?></p>
+                    <p><i class="fa fa-envelope"></i><?php echo $this->profile['email']; ?></p>
+                </div>
+                <div class="col-md-2 col-sm-2">
+                    <div class="user-mini-description">
+                        <h2>Estatísticas</h2>
+                        <h3 class="text-success semi-bold"><?php echo $this->profile['total_projetos']; ?></h3>
+                        <h5>PROJETOS</h5>
+                        <h3 class="text-success semi-bold"><?php echo $this->profile['total_projetos_ano']; ?></h3>
+                        <h5>EM 2017</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tiles-body">
+                <div class="row">
+                    <div class="post col-md-12">
+                        <?php foreach ($this->profile['ultimos_projetos'] as $dados) { ?>
+                            <div class="info-wrapper">
+                                <div class="username"><span class="dark-text"><?php echo $dados['nome']; ?></span></div>
+                                <div class="info"><?php echo $dados['descricao']; ?></div>
+                                <div class="more-details">
+                                    <ul class="post-links">
+                                        <li><a href="javascript:;" class="muted"><?php echo $dados['criado_em']; ?></a></li>
+                                        <li><a href="<?php echo $dados['link']; ?>" class="text-info">Link</a></li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br><br>
+                            </div>
+                        <?php } ?>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,206 @@
+<div id="testa"></div>
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border">
+            <div class="row">
+                <div class="container">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+                                <?php
+                                for ($i=1; $i<10; $i++){
+                                    ?>
+                                    <li class="<?php echo ($i === 1) ? 'active' : null; ?>">
+                                        <a href="#passo-<?php echo $i; ?>"><h5 class="list-group-item-heading"><?php echo $i; ?>º Passo</h5></a>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-body no-border">
+            <div class="row">
+                <form action="<?php echo $this->baseUrl('/projeto/save'); ?>" class="container" id="cadastro-projeto" method="POST">
+                    <input type="hidden" name="project_id" value="<?php echo $this->idProject; ?>">
+
+                    <?php for($i=1; $i<10; $i++){ ?>
+                        <div class="row setup-content" id="passo-<?php echo $i; ?>"><?php include ('inc-passo-'. $i .'.phtml'); ?></div>
+                    <?php } ?>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // Placeholder Textarea
+    function placeholderTextarea(action, field, placeholder) {
+        $(field).css('color', '#282323');
+        if(action != 'focus'){
+            if($(field).val() == '' || $(field).val() == placeholder){
+                $(field).val(placeholder);
+                $(field).css('color', '#a0a0a0');
+            }
+        } else {
+            if($(field).val() == '' || $(field).val() == placeholder){
+                $(field).val('');
+                $(field).css('color', '#282323');
+            }
+        }
+    }
+
+    $(document).ready(function() {
+        // WIZARD SISTEM
+        var navListItems = $('ul.setup-panel li a'), allWells = $('.setup-content');
+        allWells.hide();
+
+        navListItems.click(function(e) {
+            e.preventDefault();
+            var target = $($(this).attr('href')), item = $(this).closest('li');
+
+            if (!item.hasClass('disabled')) {
+                navListItems.closest('li').removeClass('active');
+                item.addClass('active');
+                allWells.hide();
+                target.show();
+            }
+        });
+
+        $('ul.setup-panel li.active a').trigger('click');
+        $('.activate-step').on('click', function(e) {
+            e.preventDefault();
+            var step_to_active = "#passo-" + $(this).data('step');
+            $('ul.setup-panel li a[href='+ step_to_active +']').trigger('click');
+        });
+        // END WIZARD SISTEM
+
+        // Ativando TOOLTIP
+        $('.my-tooltip').tooltip();
+
+        // Listagem de Estados e Cidades do BRASIL
+        var selectedEstados = <?php echo json_encode($this->project->localizacao_estado); ?>;
+        var selectedCidades = <?php echo json_encode($this->project->localizacao_cidade); ?>;
+
+        $("#estados, #cidades").select2();
+
+        setTimeout(function(){ $("#estados").val(selectedEstados).trigger('change') }, 1000);
+        setTimeout(function(){ $("#cidades").val(selectedCidades).trigger('change') }, 1000);
+
+        $.getJSON(baseUrl + '/js/estados_cidades.json', function (data) {
+            var options = {
+                'norte': '<optgroup label="Norte">',
+                'nordeste': '<optgroup label="Nordeste">',
+                'centrooeste': '<optgroup label="Centro Oeste">',
+                'sudeste': '<optgroup label="Sudeste">',
+                'sul': '<optgroup label="Sul">'
+            };
+
+            $.each(data, function (key, val) {
+                if(val.regiao == 'Norte'){ options.norte += '<option value="'+ val.sigla +'">'+ val.nome +'</option>'; }
+                if(val.regiao == 'Nordeste'){ options.nordeste += '<option value="'+ val.sigla +'">'+ val.nome +'</option>'; }
+                if(val.regiao == 'Centro-Oeste'){ options.centrooeste += '<option value="'+ val.sigla +'">'+ val.nome +'</option>'; }
+                if(val.regiao == 'Sudeste'){ options.sudeste += '<option value="'+ val.sigla +'">'+ val.nome +'</option>'; }
+                if(val.regiao == 'Sul'){ options.sul += '<option value="'+ val.sigla +'">'+ val.nome +'</option>'; }
+            });
+
+            options.norte += '</optgroup>';
+            options.nordeste += '</optgroup>';
+            options.centrooeste += '</optgroup>';
+            options.sudeste += '</optgroup>';
+            options.sul += '</optgroup>';
+
+            $("#estados").html(options.norte + options.nordeste + options.centrooeste + options.sudeste + options.sul);
+
+            $("#estados").change(function () {
+                var estados_selected = $(this).val();
+                var options_cidades = '';
+
+                $.each(estados_selected, function (num, sig) {
+                    options_cidades += '<optgroup label="'+ sig +'">';
+                    $.each(data, function (key, val) {
+                        if(val.sigla == sig) {
+                            $.each(val.cidades, function (key_city, val_city) {
+                                options_cidades += '<option value="' + val_city + '">'+ val.sigla +' - '+ val_city +'</option>';
+                            });
+                        }
+                    });
+                    options_cidades += '</optgroup>';
+                });
+
+                $("#cidades").html(options_cidades);
+            }).change();
+        });
+
+        // placeholder TEXTAREA Redes Sociais
+        var placeholder_social = "https://www.facebook.com/...\nhttps://www.instagram.com/...\nhttps://twitter.com/...\netc.";
+        placeholderTextarea('none', '#redes_sociais', placeholder_social);
+        $('#redes_sociais').focus(function () { placeholderTextarea('focus', '#redes_sociais', placeholder_social) });
+        $('#redes_sociais').blur(function () { placeholderTextarea('blur', '#redes_sociais', placeholder_social) });
+
+        // placeholder TEXTAREA Fotos e Videos
+        var placeholder_links = "https://www...\nhttp://www...\nwww...\netc.";
+        placeholderTextarea('none', '#redes_sociais', placeholder_links);
+        $('#fotos_videos').focus(function () { placeholderTextarea('focus', '#fotos_videos', placeholder_links) });
+        $('#fotos_videos').blur(function () { placeholderTextarea('blur', '#fotos_videos', placeholder_links) });
+
+        // Pesquisa Cidade e UF pelo CEP
+        $("#organizacao_cep").on('keyup', function() {
+            var cep = $(this).val().replace(/\D/g, '');
+
+            if (cep != "") {
+                var validacep = /^[0-9]{8}$/;
+
+                if(validacep.test(cep)) {
+                    $('#cep-alert').remove();
+                    $.getJSON("//viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+                        if (!("erro" in dados)) {
+                            $("#organizacao_cidade").val(dados.localidade);
+                            $("#organizacao_estado").val(dados.uf);
+                        } else {
+                            $('#organizacao_cep').after('<sub id="cep-alert" style="color: red">CEP não encontrado</sub>');
+                        }
+                    });
+                }
+            }
+        });
+        $("#pessoa_cep").on('keyup', function() {
+            var cep = $(this).val().replace(/\D/g, '');
+
+            if (cep != "") {
+                var validacep = /^[0-9]{8}$/;
+
+                if(validacep.test(cep)) {
+                    $.getJSON("//viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+                        if (!("erro" in dados)) {
+                            $("#pessoa_cidade").val(dados.localidade);
+                            $("#pessoa_estado").val(dados.uf);
+                        } else {
+                            alert("CEP não encontrado.");
+                        }
+                    });
+                }
+            }
+        });
+
+        // Salvar rascunho
+        $(".save").click(function(){
+            // TODO: animation saving
+            saveDraft();
+        });
+
+        function saveDraft()
+        {
+            var fieldsArray = $('#cadastro-projeto').serializeArray();
+            fieldsArray[fieldsArray.length] = { name: "status", value: "1" };
+
+            $.post(baseUrl +"/projeto/save", fieldsArray, function(data){
+                $('#testa').html(data);
+            });
+        }
+    });
+</script>
