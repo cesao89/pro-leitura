@@ -6,7 +6,7 @@
             <div class="col-md-12" style="padding-left: 0">
                 <!-- Titulo -->
                 <div class="form-group">
-                    <label for="nome"><h5>Titulo da experiência</h5></label>
+                    <label for="nome"><h5>Nome do Projeto</h5></label>
                     <input type="text" class="form-control" id="nome" name="nome" maxlength="100" value="<?php echo $this->project->nome; ?>">
                 </div>
             </div>
@@ -14,8 +14,8 @@
             <div class="col-md-12" style="padding-left: 0">
                 <!-- Natureza -->
                 <div class="form-group col-md-5" style="padding-left: 0">
-                    <h5>Natureza da experiência</h5>
-                    <div class="radio">
+                    <h5>Natureza do Projeto</h5>
+                    <div class="checkbox check-default">
                         <?php
                         $arrNatureza = array(
                             "Formação de mediadores",
@@ -48,7 +48,7 @@
                                 <div class="col-md-6" style="padding-left: 0">
                             <?php } ?>
 
-                            <input type="radio" name="natureza" id="natureza<?php echo $key; ?>" value="<?php echo $value; ?>" <?php echo ($check === $key) ? "checked='checked'" : null; ?>>
+                            <input type="checkbox" name="natureza[]" id="natureza<?php echo $key; ?>" value="<?php echo $value; ?>" <?php echo ($check === $key) ? "checked='checked'" : null; ?>>
                             <label for="natureza<?php echo $key; ?>" style="font-size: 12px"><?php echo $value; ?></label>
 
                             <?php  if($value == 'Outra'){ ?>
@@ -65,8 +65,8 @@
 
                 <!-- Publico -->
                 <div class="form-group col-md-5" style="padding-left: 0">
-                    <h5>Público</h5>
-                    <div class="radio">
+                    <h5>Identificação do Público Atendido</h5>
+                    <div class="checkbox check-default">
                         <?php
                         $arrPublico = array(
                             "Estudantes",
@@ -97,7 +97,7 @@
                                     <div class="col-md-6" style="padding-left: 0">
                             <?php } ?>
 
-                            <input type="radio" name="publico_alvo" id="publico_alvo<?php echo $key; ?>" value="<?php echo $value; ?>" <?php echo ($checkPublico === $key) ? "checked='checked'" : null; ?>>
+                            <input type="checkbox" name="publico_alvo[]" id="publico_alvo<?php echo $key; ?>" value="<?php echo $value; ?>" <?php echo ($checkPublico === $key) ? "checked='checked'" : null; ?>>
                             <label for="publico_alvo<?php echo $key; ?>" style="font-size: 12px"><?php echo $value; ?></label>
 
                             <?php if($value == 'Outra'){ ?>
@@ -138,7 +138,7 @@
             <div class="col-md-12" style="padding-left: 0">
                 <!-- Diferenciais da experiência -->
                 <div class="form-group">
-                    <label for="diferenciais_experiencia"><h5>Principais diferenciais da experiência</h5></label>
+                    <label for="diferenciais_experiencia"><h5>Principais Diferenciais</h5></label>
                     <textarea id="diferenciais_experiencia" name="diferenciais_experiencia" style="width: 100%; height: 70px;" maxlength="200"><?php echo $this->project->diferenciais_experiencia; ?></textarea>
                 </div>
             </div>
@@ -147,7 +147,7 @@
         <div class="container col-md-4">
             <!-- Extensão da experiência -->
             <div class="row">
-                <div class="col-md-12"><h5 style="margin-top: 2px;">Extensão da experiência</h5></div>
+                <div class="col-md-12"><h5 style="margin-top: 2px;">Vigência Projeto</h5></div>
 
                 <div class="col-md-6"><label for="iniciado_em">Inicio</label></div>
                 <div class="col-md-6">
