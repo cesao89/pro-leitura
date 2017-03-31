@@ -1,9 +1,0 @@
-
-PARÂMETROS: 
-
- - 4 PARÂMETROS SÃO ACEITOS NO TMSTABLE:
-    - PRIMEIRO(obrigatório): O endereço do ajax que faz a requisição dos dados na base de dados
-    - SEGUNDO(obrigatório): O endereço do diretório 'public' (diretório ao qual encontram-se os arquivos de imagem, css e js) 
-    ou pasta de objetivo semelhante.
-    - TERCEIRO(opcional): O número de ítens que serão exibidos por página.
-    - QUARTO(opcional): A ordenação dos dados que serão exibidos na tabela (puxados da base de dados)
