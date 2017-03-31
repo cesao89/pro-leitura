@@ -208,7 +208,7 @@ body.boxed-layout .footer-widget {
 }
 .header .navbar-inner {
     background-image: none !important;
-    background-color: #ffffff !important;
+    background-color: #424040 !important;
     width: 100%;
     margin: 0;
     border: 0px;
@@ -296,6 +296,8 @@ body.boxed-layout .footer-widget {
 }
 .header .nav > li.quicklinks > a {
     padding: 4px 2px !important;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 .header .nav > li.quicklinks > a i {
     display: inline-block;
@@ -332,7 +334,7 @@ body.boxed-layout .footer-widget {
 }
 .header .header-quick-nav {
     padding-right: 10px;
-    height: 60px;
+    height: 70px;
     -webkit-transition-duration: 1s;
     -moz-transition-duration: 1s;
     transition-duration: 1s;
@@ -899,7 +901,7 @@ body.boxed-layout .footer-widget {
 .header .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
-    background-color: #ffffff;
+    background: transparent;
 }
 .open {
     position: relative;
@@ -1336,8 +1338,9 @@ body.boxed-layout .footer-widget {
 .page-content {
     margin-top: 0px;
     padding: 0px;
-    background-color: #e5e9ec;
+    background-color: #424040;
     overflow: auto;
+    overflow-x: hidden;
     position: relative;
     min-height: 100%;
     -webkit-transition: -webkit-transform 0.3s ease;
@@ -2081,7 +2084,7 @@ h6 {
     margin: 10px 0;
     font-family: 'Roboto';
     font-weight: 300;
-    color: #505458;
+    color: #333333;
 }
 h1 {
     line-height: 43px;
@@ -2112,7 +2115,7 @@ h6.block {
 }
 a {
     text-shadow: none !important;
-    color: #0d638f;
+    color: #fca700;
     transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.1s linear 0s !important;
 }
 a.icon:hover {
@@ -2130,6 +2133,12 @@ a:hover,
 a:active {
     outline: 0;
     text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+a:hover,
+a:focus {
+    color: #505458;
 }
 i {
     font-size: 14px;
@@ -2412,7 +2421,7 @@ hr {
     top: 2px;
 }
 .well {
-    background-color: #d1dade;
+    background-color: transparent;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -3191,7 +3200,7 @@ div.DTTT_print_info p {
     position: absolute;
 }
 .login-container {
-    margin-top: 13%;
+    margin-top: 10%;
 }
 .lockscreen-wrapper {
     position: relative;
@@ -4172,12 +4181,12 @@ form legend,
     margin-bottom: 20px;
 }
 .form-group .form-label {
-    color: #55606e;
+    color: #333333;
     display: inline-block;
     margin-right: 8px;
 }
 .form-group .help {
-    color: #A7ABB1;
+    color: #666;
     font-size: 12px;
 }
 .form-group .controls {
@@ -4836,6 +4845,13 @@ form legend,
     margin-bottom: 25px;
     padding: 0px;
 }
+.grid a{
+    color: #ffffff;
+}
+.grid a:hover,
+.grid a:focus {
+    color: #505458;
+}
 .grid.form-grid .grid-body {
     padding-bottom: 0 !important;
 }
@@ -4957,12 +4973,15 @@ form legend,
 }
 .grid.simple {
     padding: 0px !important;
+    background-color: #fcbc3f;
+    border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
 }
 .grid.simple .grid-title {
     padding: 14px 15px 7px 15px;
     border-bottom: 1px solid #eee;
     color: #282323 !important;
-    background-color: #ffffff;
     margin-bottom: 0px;
     border: 1px solid #dddddd;
     border-bottom: 0px;
@@ -4993,7 +5012,6 @@ form legend,
     background-color: transparent;
 }
 .grid.simple .grid-body {
-    background-color: #ffffff;
     padding: 26px;
     border: 1px solid #dddddd;
     color: #6f7b8a;
@@ -6993,7 +7011,7 @@ code:hover {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-    background-color: #d1dade;
+    background-color: #fca700;
 }
 .nav-tabs > li > a,
 .nav-pills > li > a {
@@ -10173,3 +10191,14 @@ body.rtl .footer-widget {
     }
 }
 
+/* --------------------------------- */
+#formulario-projeto h5 {
+    font-weight: 600;
+    color: #333;
+}
+
+#formulario-projeto label,
+#formulario-projeto p
+{
+    color: #444;
+}
