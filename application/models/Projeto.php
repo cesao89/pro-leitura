@@ -46,7 +46,7 @@ class Application_Model_Projeto extends Application_Model_BaseDum
             'atendidos_ultimo_ano'      => (isset($fetchProjeto[0]->atendidos_ultimo_ano) && !empty($fetchProjeto[0]->atendidos_ultimo_ano)) ? $fetchProjeto[0]->atendidos_ultimo_ano : 0,
             'atendidos_por_acao'        => (isset($fetchProjeto[0]->atendidos_por_acao) && !empty($fetchProjeto[0]->atendidos_por_acao)) ? $fetchProjeto[0]->atendidos_por_acao : 0,
             'atendidos_detalhes'        => (isset($fetchProjeto[0]->atendidos_detalhes) && !empty($fetchProjeto[0]->atendidos_detalhes)) ? utf8_encode($fetchProjeto[0]->atendidos_detalhes) : null,
-            'localizacao_territorio'    => (isset($fetchProjeto[0]->localizacao_territorio) && !empty($fetchProjeto[0]->localizacao_territorio)) ? utf8_encode($fetchProjeto[0]->localizacao_territorio) : null,
+            'localizacao_territorio'    => (isset($fetchProjeto[0]->localizacao_territorio) && !empty($fetchProjeto[0]->localizacao_territorio)) ? explode(',', utf8_encode($fetchProjeto[0]->localizacao_territorio)) : null,
             'localizacao_regional'      => (isset($fetchProjeto[0]->localizacao_regional) && !empty($fetchProjeto[0]->localizacao_regional)) ? utf8_encode($fetchProjeto[0]->localizacao_regional) : null,
             'localizacao_estado'        => (isset($fetchProjeto[0]->localizacao_estado) && !empty($fetchProjeto[0]->localizacao_estado)) ? explode(',', utf8_encode($fetchProjeto[0]->localizacao_estado)) : null,
             'localizacao_cidade'        => (isset($fetchProjeto[0]->localizacao_cidade) && !empty($fetchProjeto[0]->localizacao_cidade)) ? explode(',', utf8_encode($fetchProjeto[0]->localizacao_cidade)) : null,

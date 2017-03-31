@@ -97,14 +97,20 @@ class ProjetoController extends Zend_Controller_Action
             'atendidos_ultimo_ano'          => (isset($param['atendidos_ultimo_ano']) && !empty($param['atendidos_ultimo_ano'])) ? $param['atendidos_ultimo_ano'] : null,
             'atendidos_por_acao'            => (isset($param['atendidos_por_acao']) && !empty($param['atendidos_por_acao'])) ? $param['atendidos_por_acao'] : null,
             'atendidos_detalhes'            => (isset($param['atendidos_detalhes']) && !empty($param['atendidos_detalhes'])) ? $param['atendidos_detalhes'] : null,
-            'localizacao_territorio'        => (isset($param['territorio']) && !empty($param['territorio'])) ? $param['territorio'] : null,
+            'localizacao_territorio'        => null,
             'localizacao_regional'          => null,
             'localizacao_estado'            => null,
             'localizacao_cidade'            => null,
             'localizacao_outro'             => null,
             'organizacao_nome'              => (isset($param['instituicao']) && !empty($param['instituicao'])) ? $param['instituicao'] : null,
         );
-        $campos = array('genero' => 'genero', 'regional' => 'localizacao_regional', 'estados' => 'localizacao_estado', 'cidades' => 'localizacao_cidade');
+        $campos = array(
+            'genero' => 'genero',
+            'regional' => 'localizacao_regional',
+            'territorio' => 'localizacao_territorio',
+            'estados' => 'localizacao_estado',
+            'cidades' => 'localizacao_cidade',
+        );
         foreach ($campos as $fieldFrom => $fieldTo){
             if(isset($param[$fieldFrom]) && !empty($param[$fieldFrom])){
                 foreach ($param[$fieldFrom] as $val){
@@ -214,7 +220,7 @@ class ProjetoController extends Zend_Controller_Action
 
         // TODO: SALVAR DADOS
         print('<pre>');
-        print_r($toSaveProjetoResponsavel);
+        print_r($toSaveProjeto);
         die;
 
 

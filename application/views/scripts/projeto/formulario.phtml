@@ -83,13 +83,49 @@
         $('.my-tooltip').tooltip();
 
         // Listagem de Estados e Cidades do BRASIL
+        var selectedTerritorios = <?php echo json_encode($this->project->localizacao_territorio); ?>;
         var selectedEstados = <?php echo json_encode($this->project->localizacao_estado); ?>;
         var selectedCidades = <?php echo json_encode($this->project->localizacao_cidade); ?>;
 
-        $("#estados, #cidades").select2();
+        $("#territorio, #estados, #cidades").select2();
 
+        setTimeout(function(){ $("#territorio").val(selectedTerritorios).trigger('change') }, 1000);
         setTimeout(function(){ $("#estados").val(selectedEstados).trigger('change') }, 1000);
         setTimeout(function(){ $("#cidades").val(selectedCidades).trigger('change') }, 1000);
+
+        $.getJSON(baseUrl + '/js/paises.json', function (data) {
+            var optionsTerritorio = '';
+
+            $.each(data, function (key, val) {
+                optionsTerritorio += '<option value="'+ val.sigla3 +'">'+ val.nome +'</option>';
+            });
+
+            $("#territorio").html(optionsTerritorio);
+
+            var activeNacional = false;
+            $("#territorio").change(function () {
+                var territorio_selected = $(this).val();
+                activeNacional = false;
+
+                if(territorio_selected){
+                    $.each(territorio_selected, function (num, sig) {
+                        if(sig == 'BRA'){
+                            activeNacional = true;
+                        }
+                    });
+                }
+
+                if(activeNacional){
+                    $('.input-nacional').fadeIn();
+                    $('.input-nacional input, .input-nacional select').prop('disabled', false);
+                    $('#estados, #cidades').select2().enable(true);
+                } else {
+                    $('.input-nacional').fadeOut();
+                    $('.input-nacional input, .input-nacional select').prop('disabled', 'disabled');
+                    $('#estados, #cidades').select2().enable(false);
+                }
+            }).change();
+        });
 
         $.getJSON(baseUrl + '/js/estados_cidades.json', function (data) {
             var options = {
@@ -193,8 +229,7 @@
             saveDraft();
         });
 
-        function saveDraft()
-        {
+        function saveDraft() {
             var fieldsArray = $('#cadastro-projeto').serializeArray();
             fieldsArray[fieldsArray.length] = { name: "status", value: "1" };
 
@@ -202,5 +237,19 @@
                 $('#testa').html(data);
             });
         }
+
+        // Contador de caracteres
+        $('#diferenciais_experiencia, #atendidos_detalhes, #sintese, #caracteristicas, #objetivos, #justificativas, #resultado, #metodologia_a, #metodologia_b, #avaliacoes, #depoimentos, #premios, #principais_dificuldades, #dificuldades_superadas, #garantir_continuidade, #redes_sociais, #fotos_videos, #adicional').keyup(function (event) {
+            event.preventDefault();
+
+            var limit = $(this).attr('maxLength');
+            var value = $(this).val();
+            var valueTotal = value.length;
+
+            var nameCount = $(this).attr('name') + '_countdown';
+
+            $('.'+ nameCount).remove();
+            $(this).after('<sub class="'+ nameCount +'" style="float: right; top: 10px;">Caracteres Restantes: '+ (limit - valueTotal) +'</sub>');
+        }).keyup();
     });
 </script>

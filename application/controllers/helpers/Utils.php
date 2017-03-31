@@ -58,4 +58,10 @@ class Zend_Controller_Action_Helper_Utils extends Zend_Controller_Action_Helper_
         } while (next($arr) !== false);
         return $result;
     }
+
+    function dateFormat($dateIN, $dateOUT='Y-m-d')
+    {
+        $date = new DateTime($dateIN);
+        return $date->format($dateOUT);
+    }
 }

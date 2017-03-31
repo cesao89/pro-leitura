@@ -11,21 +11,13 @@
                     <div class="row">
                         <!-- Territorio -->
                         <div class="col-md-6">
-                            <h5>Território</h5>
-                            <div class="form-group">
-                                <div class="radio radio-inline">
-                                    <input type="radio" name="territorio" value="nacional" id="nacional" <?php echo ($this->project->localizacao_territorio == 'nacional') ? "checked=''" : null; ?>>
-                                    <label for="nacional">Nacional</label>
-                                </div>
-                                <div class="radio radio-inline">
-                                    <input type="radio" name="territorio" value="internacional" id="internacional" <?php echo ($this->project->localizacao_territorio == 'internacional') ? "checked=''" : null; ?>>
-                                    <label for="internacional">Internacional</label>
-                                </div>
-                            </div>
+                            <label for="territorio">País</label>
+                            <select class="form-control select2 select2-offscreen" tabindex="-1" multiple="multiple" name="territorio[]" id="territorio"></select>
                         </div>
 
+
                         <!-- Regional -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 input-nacional">
                             <h5>Regional</h5>
                             <?php
                             $arrRegional = array("Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul");
@@ -41,7 +33,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row input-nacional">
                         <!-- Estado -->
                         <div class="col-md-6" style="margin-bottom: 20px">
                             <label for="estados">Estados</label>
