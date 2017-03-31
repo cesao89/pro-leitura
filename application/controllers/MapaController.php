@@ -38,6 +38,11 @@ class MapaController extends Zend_Controller_Action
         $this->view->title = 'Mapa de Projetos';
     }
 
+    public function embedBrasilAction()
+    {
+        $this->_helper->layout->setLayout('embed');
+    }
+
     public function regiaoSelecionadaAction()
     {
         $this->_helper->layout->disableLayout();
