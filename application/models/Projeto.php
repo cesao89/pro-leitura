@@ -222,7 +222,7 @@ class Application_Model_Projeto extends Application_Model_BaseDum
         $projectInfo = array(
             'id'                        => (isset($fetchProjeto[0]->id) && !empty($fetchProjeto[0]->id)) ? $fetchProjeto[0]->id : null,
             'user_id'                   => (isset($fetchProjeto[0]->user_id) && !empty($fetchProjeto[0]->user_id)) ? $fetchProjeto[0]->user_id : null,
-            'status_id'                   => (isset($fetchProjeto[0]->status_id) && !empty($fetchProjeto[0]->status_id)) ? $fetchProjeto[0]->status_id : null,
+            'status_id'                 => (isset($fetchProjeto[0]->status_id) && !empty($fetchProjeto[0]->status_id)) ? $fetchProjeto[0]->status_id : null,
             'nome'                      => (isset($fetchProjeto[0]->nome) && !empty($fetchProjeto[0]->nome)) ? $fetchProjeto[0]->nome : null,
             'diferenciais_experiencia'  => (isset($fetchProjeto[0]->diferenciais_experiencia) && !empty($fetchProjeto[0]->diferenciais_experiencia)) ? $fetchProjeto[0]->diferenciais_experiencia : null,
             'vigencia_inicio'           => (isset($fetchProjeto[0]->vigencia_inicio) && !empty($fetchProjeto[0]->vigencia_inicio) && $fetchProjeto[0]->vigencia_inicio != '0000-00-00') ? $this->dateFormat($fetchProjeto[0]->vigencia_inicio, 'm/Y') : null,

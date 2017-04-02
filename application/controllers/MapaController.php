@@ -41,8 +41,8 @@ class MapaController extends Zend_Controller_Action
     public function internacionalAction()
     {
         $projetoModel = new Application_Model_Projeto();
-        $list1 = $projetoModel->listProject(array('status_id' => 1), 100);
-        $list2 = $projetoModel->listProject(array('status_id' => 2), 100);
+        $list1 = $projetoModel->listProject(array('status_id' => 3), 100);
+        $list2 = $projetoModel->listProject(array('status_id' => 4), 100);
         $projects = array_merge($list1, $list2);
 
         $projetosFetch = array();

@@ -259,7 +259,6 @@ class ProjetoController extends Zend_Controller_Action
         }
 
         if($fieldsProject['projeto']['status_id'] == 1){
-            sleep(rand(1,5));
             echo '<div id="alert-popup" class="alert alert-info"><button data-dismiss="alert" class="close"></button>Salvo às '. date('d/m/Y H:i:s') .'</div>';
         } else if($fieldsProject['projeto']['status_id'] == 2){
             $this->_helper->FlashMessenger(array('success' => 'Projeto enviado com sucesso!'));
