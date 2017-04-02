@@ -14,6 +14,10 @@ $host = getUserIP();
 // Define application environment
 if (in_array($host, $develop)) {
     $typeAccess = 'development';
+
+    define('DB_HOST', getenv('DB_HOST'));
+    define('DB_USER', getenv('DB_USER'));
+    define('DB_PASS', getenv('DB_PASS'));
 } elseif (in_array($host, $testing)) {
     $typeAccess = 'testing';
 } else {

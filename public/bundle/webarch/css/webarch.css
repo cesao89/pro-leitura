@@ -4847,10 +4847,15 @@ form legend,
 }
 .grid a{
     color: #ffffff;
+    font-weight: bold;
 }
 .grid a:hover,
 .grid a:focus {
     color: #505458;
+}
+.grid a.btn:hover,
+.grid a.btn:focus {
+    color: #FFFFFF;
 }
 .grid.form-grid .grid-body {
     padding-bottom: 0 !important;
@@ -5736,7 +5741,7 @@ form legend,
     margin-right: 0px;
 }
 .tiles {
-    background-color: #bcbcbc;
+    background-color: #fca700;
     color: #ffffff;
     position: relative;
 }
@@ -7705,7 +7710,8 @@ input[type="checkbox"] {
     text-align: right;
 }
 .user-description-box {
-    background-color: #f2f4f6;
+    background-color: #fcbc3f;
+    color: #333;
     margin: 10px 15px;
     padding: 20px;
 }

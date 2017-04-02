@@ -99,42 +99,18 @@ class UsuarioController extends Zend_Controller_Action
         }
 
         $usuario = new Application_Model_Usuario($id);
-
-        // TODO: Adicionar informações do projeto
-//        $projeto = new Application_Model_Projeto();
-//        $todosProjetos = $projeto->allProjects();
-//        $totalProjectos = count($todosProjetos);
+        $projeto = new Application_Model_Projeto();
 
         $usuarioView = array(
-            'nome'          => $usuario->name,
-            'email'         => $usuario->email,
-            'telefone'      => $usuario->phone,
-            'cpf'           => $usuario->num_document,
-            'status'        => $usuario->status,
-            'cadastrado'    => $usuario->created_at,
-            'atualizado'    => $usuario->updated_at,
-            'total_projetos' => 320,
-            'total_projetos_ano' => 23,
-            'ultimos_projetos' => array(
-                array(
-                    'nome'      => 'Projeto X',
-                    'descricao' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt justo eget mi vehicula, nec fermentum mi rutrum. Cras vitae nunc lorem. Maecenas eleifend leo erat, eu sagittis sem posuere vel. Sed dictum interdum felis, sed hendrerit orci facilisis et. Praesent tincidunt aliquam lorem vel tristique. Vestibulum gravida magna lacus, non facilisis lectus mattis eu. Nullam pellentesque sodales ante. Donec suscipit orci efficitur neque pellentesque egestas.',
-                    'criado_em' => '03/2017',
-                    'link'      => $this->view->baseUrl('/projeto/detalhe/i/'. $id)
-                ),
-                array(
-                    'nome'      => 'Projeto Y',
-                    'descricao' => 'Donec sodales risus felis, sit amet facilisis erat ornare vitae. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
-                    'criado_em' => '02/2017',
-                    'link'      => $this->view->baseUrl('/projeto/detalhe/i/'. $id)
-                ),
-                array(
-                    'nome'      => 'Projeto |',
-                    'descricao' => 'Quisque ut suscipit neque, quis vehicula orci. Nullam ullamcorper nibh ac ante congue sagittis. Nullam bibendum bibendum metus. Nullam id lectus ante.',
-                    'criado_em' => '12/2016',
-                    'link'      => $this->view->baseUrl('/projeto/detalhe/i/'. $id)
-                )
-            )
+            'id'                => $usuario->id,
+            'nome'              => $usuario->name,
+            'email'             => $usuario->email,
+            'telefone'          => $this->_helper->utils->mask($usuario->phone, (strlen($usuario->phone) > 10) ? '(##) #####-####' : '(##) ####-####'),
+            'cpf'               => $this->_helper->utils->mask($usuario->num_document, '###.###.###-##'),
+            'status'            => $usuario->status,
+            'cadastrado'        => $this->_helper->utils->dateFormat($usuario->created_at, 'd/m/Y'),
+            'atualizado'        => $this->_helper->utils->dateFormat($usuario->updated_at, 'd/m/Y H:i:s'),
+            'ultimos_projetos'  => $projeto->lastProjects($id),
         );
 
         $this->view->title = 'Perfil';

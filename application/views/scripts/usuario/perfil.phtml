@@ -1,24 +1,13 @@
 <div class="col-md-12">
-    <div class=" tiles white col-md-12 no-padding">
-        <div class="tiles white">
+    <div class=" tiles col-md-12 no-padding">
+        <div class="tiles">
             <div class="row">
-                <div class="col-md-9 user-description-box  col-sm-9">
+                <div class="col-md-11 user-description-box  col-sm-9">
                     <h4 class="semi-bold no-margin"><?php echo $this->profile['nome']; ?></h4>
-                    <h6 class="no-margin"><?php echo $this->profile['email']; ?></h6>
                     <br>
-                    <p><i class="fa fa-calendar"></i><?php echo $this->profile['cadastrado']; ?></p>
-                    <p><i class="fa fa-refresh"></i><?php echo $this->profile['atualizado']; ?></p>
                     <p><i class="fa fa-phone"></i><?php echo $this->profile['telefone']; ?></p>
                     <p><i class="fa fa-envelope"></i><?php echo $this->profile['email']; ?></p>
-                </div>
-                <div class="col-md-2 col-sm-2">
-                    <div class="user-mini-description">
-                        <h2>Estatísticas</h2>
-                        <h3 class="text-success semi-bold"><?php echo $this->profile['total_projetos']; ?></h3>
-                        <h5>PROJETOS</h5>
-                        <h3 class="text-success semi-bold"><?php echo $this->profile['total_projetos_ano']; ?></h3>
-                        <h5>EM 2017</h5>
-                    </div>
+                    <p><i class="fa fa-calendar"></i><?php echo $this->profile['cadastrado']; ?></p>
                 </div>
             </div>
 
@@ -27,12 +16,13 @@
                     <div class="post col-md-12">
                         <?php foreach ($this->profile['ultimos_projetos'] as $dados) { ?>
                             <div class="info-wrapper">
-                                <div class="username"><span class="dark-text"><?php echo $dados['nome']; ?></span></div>
-                                <div class="info"><?php echo $dados['descricao']; ?></div>
+                                <div class="username"><span class="dark-text" style="font-weight: bold"><?php echo $dados['nome']; ?></span></div>
+                                <div class="info"><?php echo $dados['sintese']; ?></div>
                                 <div class="more-details">
-                                    <ul class="post-links">
-                                        <li><a href="javascript:;" class="muted"><?php echo $dados['criado_em']; ?></a></li>
-                                        <li><a href="<?php echo $dados['link']; ?>" class="text-info">Link</a></li>
+                                    <ul class="post-links" style="color: #FFF">
+                                        <li><a href="javascript:;" class="muted" style="color:#FFF"><?php echo $dados['updated_at']; ?></a></li>
+                                        <li><a href="<?php echo $this->baseUrl('/projeto/detalhes/i/'. $dados['id']); ?>" class="text-info" style="color: #FFF !important; text-decoration: underline">VER PROJETO</a></li>
+                                        <li>[ <?php echo strtoupper($dados['status']); ?> ]</li>
                                     </ul>
                                 </div>
                                 <div class="clearfix"></div>

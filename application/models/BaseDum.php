@@ -617,6 +617,13 @@ class Application_Model_BaseDum extends Application_Model_DbConn
         }
     }
 
+    public function get_errors()
+    {
+        $errors = $this->errors;
+        $this->errors = null;
+        return $errors;
+    }
+
     /**
      * Método para Inserir registro no DB
      *

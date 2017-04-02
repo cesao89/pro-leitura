@@ -1,4 +1,4 @@
-<div id="testa"></div>
+<div id="return-auto" style="right: 10px; position: absolute; z-index: 20; margin-top: -30px;"></div>
 <div class="col-md-12" id="formulario-projeto">
     <div class="grid simple">
         <div class="grid-title no-border">
@@ -27,6 +27,7 @@
             <div class="row">
                 <form action="<?php echo $this->baseUrl('/projeto/save'); ?>" class="container" id="cadastro-projeto" method="POST">
                     <input type="hidden" name="project_id" value="<?php echo $this->idProject; ?>">
+                    <input type="hidden" name="status_id" id="status_id" value="1">
 
                     <?php for($i=1; $i<10; $i++){ ?>
                         <div class="row setup-content" id="passo-<?php echo $i; ?>"><?php include ('inc-passo-'. $i .'.phtml'); ?></div>
@@ -51,6 +52,32 @@
                 $(field).val('');
                 $(field).css('color', '#282323');
             }
+        }
+    }
+
+    // Savar Rascunho
+    var saving = false;
+    function saveDraft() {
+        if(saving === false){
+            saving = true;
+            var button = $('.save');
+            var icone = $('.save i');
+            var fieldsArray = $('#cadastro-projeto').serializeArray();
+
+            button.addClass('disabled');
+            icone.removeClass('fa-floppy-o');
+            icone.addClass('fa-spinner');
+            icone.addClass('fa-spin');
+
+            $.post(baseUrl +"/projeto/save", fieldsArray, function(data){
+                $('#return-auto').html(data);
+                button.removeClass('disabled');
+                icone.addClass('fa-floppy-o');
+                icone.removeClass('fa-spinner');
+                icone.removeClass('fa-spin');
+                saving = false;
+                $("#alert-popup").delay(15000).fadeOut('slow');
+            });
         }
     }
 
@@ -81,6 +108,23 @@
 
         // Ativando TOOLTIP
         $('.my-tooltip').tooltip();
+
+        // Salvar rascunho
+        $(".save").click(function(){
+            saveDraft();
+        });
+        setInterval(function(){
+            saveDraft();
+        }, 60000);
+
+        // Concluir formulário
+        $(".submit-form").click(function(){
+            var confirmation = confirm('Tem certeza que deseja concluir o cadastro do projeto e envia-lo para uma equipe de analistas?');
+            if(!confirmation)
+                return false;
+            $('#status_id').val('2');
+            $('#cadastro-projeto').submit();
+        });
 
         // Listagem de Estados e Cidades do BRASIL
         var selectedTerritorios = <?php echo json_encode($this->project->localizacao_territorio); ?>;
@@ -222,21 +266,6 @@
                 }
             }
         });
-
-        // Salvar rascunho
-        $(".save").click(function(){
-            // TODO: animation saving
-            saveDraft();
-        });
-
-        function saveDraft() {
-            var fieldsArray = $('#cadastro-projeto').serializeArray();
-            fieldsArray[fieldsArray.length] = { name: "status", value: "1" };
-
-            $.post(baseUrl +"/projeto/save", fieldsArray, function(data){
-                $('#testa').html(data);
-            });
-        }
 
         // Contador de caracteres
         $('#diferenciais_experiencia, #atendidos_detalhes, #sintese, #caracteristicas, #objetivos, #justificativas, #resultado, #metodologia_a, #metodologia_b, #avaliacoes, #depoimentos, #premios, #principais_dificuldades, #dificuldades_superadas, #garantir_continuidade, #redes_sociais, #fotos_videos, #adicional').keyup(function (event) {

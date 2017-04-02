@@ -4,20 +4,17 @@
  * Class Application_Model_Usuario
  *
  * @author Cesar O Domingos <cesar_web@live.com>
- * @version 1.0
- * @package classes
  */
 class Application_Model_Usuario extends Application_Model_BaseDum
 {
-    // Config para classe Abstrata BaseDum
-    protected $classname = 'Application_Model_Usuario'; // nome da classe
-    protected $table = 'user'; // tabela
-    protected $pk = 'id'; // chave primária
-    protected $auto_increment = true; // autoincrement
-    protected $db_config = array(); // config do acesso ao DB
-    protected $config = array(); // config ( application.ini )
     public $db;
-    public $fields = null; // propriedades
+    public $fields = null;              // propriedades
+    protected $classname = 'Application_Model_Usuario'; // nome da classe
+    protected $table = 'user';          // tabela
+    protected $pk = 'id';               // chave primária
+    protected $auto_increment = true;   // autoincrement
+    protected $db_config = array();     // config do acesso ao DB
+    protected $config = array();        // config ( application.ini )
 
     /**
      * Application_Model_Usuario constructor.

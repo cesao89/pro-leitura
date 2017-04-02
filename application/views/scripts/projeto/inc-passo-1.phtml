@@ -27,17 +27,19 @@
                         );
 
                         // IDENTIFICANDO CHECK E DETALHE
-                        $check = null; $outra = null;
+                        $check = array(); $outra = null;
                         if(isset($this->project->natureza)){
-                            if(in_array($this->project->natureza, $arrNatureza)){
-                                foreach ($arrNatureza as $k => $v){
-                                    if($this->project->natureza == $v){
-                                        $check = $k;
+                            foreach ($this->project->natureza as $natureza){
+                                if(in_array($natureza, $arrNatureza)){
+                                    foreach ($arrNatureza as $k => $v){
+                                        if($natureza == $v){
+                                            $check[] = $k;
+                                        }
                                     }
+                                } else {
+                                    $check[] = count($arrNatureza)-1;
+                                    $outra = $natureza;
                                 }
-                            } else {
-                                $check = count($arrNatureza)-1;
-                                $outra = $this->project->natureza;
                             }
                         }
 
@@ -48,7 +50,7 @@
                                 <div class="col-md-6" style="padding-left: 0">
                             <?php } ?>
 
-                            <input type="checkbox" name="natureza[]" id="natureza<?php echo $key; ?>" value="<?php echo $value; ?>" <?php echo ($check === $key) ? "checked='checked'" : null; ?>>
+                            <input type="checkbox" name="natureza[]" id="natureza<?php echo $key; ?>" value="<?php echo $value; ?>" <?php echo (in_array($key, $check)) ? "checked='checked'" : null; ?>>
                             <label for="natureza<?php echo $key; ?>" style="font-size: 12px"><?php echo $value; ?></label>
 
                             <?php  if($value == 'Outra'){ ?>
@@ -77,17 +79,19 @@
                         );
 
                         // IDENTIFICANDO CHECK E DETALHE
-                        $checkPublico = null; $outraPublico = null;
+                        $checkPublico = array(); $outraPublico = null;
                         if(isset($this->project->publico_atendido)){
-                            if(in_array($this->project->publico_atendido, $arrPublico)){
-                                foreach ($arrPublico as $k => $v){
-                                    if($this->project->publico_atendido == $v){
-                                        $checkPublico = $k;
+                            foreach ($this->project->publico_atendido as $publico_atendido) {
+                                if(in_array($publico_atendido, $arrPublico)){
+                                    foreach ($arrPublico as $k => $v){
+                                        if($publico_atendido == $v){
+                                            $checkPublico[] = $k;
+                                        }
                                     }
+                                } else {
+                                    $checkPublico[] = count($arrPublico)-1;
+                                    $outraPublico = $publico_atendido;
                                 }
-                            } else {
-                                $checkPublico = count($arrPublico)-1;
-                                $outraPublico = $this->project->publico_atendido;
                             }
                         }
 
@@ -97,7 +101,7 @@
                                     <div class="col-md-6" style="padding-left: 0">
                             <?php } ?>
 
-                            <input type="checkbox" name="publico_alvo[]" id="publico_alvo<?php echo $key; ?>" value="<?php echo $value; ?>" <?php echo ($checkPublico === $key) ? "checked='checked'" : null; ?>>
+                            <input type="checkbox" name="publico_alvo[]" id="publico_alvo<?php echo $key; ?>" value="<?php echo $value; ?>" <?php echo (in_array($key, $checkPublico)) ? "checked='checked'" : null; ?>>
                             <label for="publico_alvo<?php echo $key; ?>" style="font-size: 12px"><?php echo $value; ?></label>
 
                             <?php if($value == 'Outra'){ ?>
@@ -221,7 +225,7 @@
                 <div class="col-md-4 text-left"></div>
                 <div class="col-md-4 text-center">
                     <a href="javascript:;" class="btn btn-danger btn-md save">
-                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                        <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i>
                         Salvar Rascunho
                     </a>
                 </div>

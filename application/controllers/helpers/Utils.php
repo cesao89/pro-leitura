@@ -64,4 +64,28 @@ class Zend_Controller_Action_Helper_Utils extends Zend_Controller_Action_Helper_
         $date = new DateTime($dateIN);
         return $date->format($dateOUT);
     }
+
+    function mask($val, $mask)
+    {
+        if(empty($val) || empty($mask))
+            return $val;
+
+        $needMask = preg_replace('/[^#]/', '', $mask);
+        $maskared = '';
+        $k = 0;
+
+        if(strlen($needMask) != strlen($val))
+            $val = str_pad($val, strlen($needMask), 0, STR_PAD_LEFT);
+
+        for($i=0; $i <= strlen($mask)-1; $i++){
+            if($mask[$i] == '#') {
+                if(isset($val[$k]))
+                    $maskared .= $val[$k++];
+            } else {
+                if(isset($mask[$i]))
+                    $maskared .= $mask[$i];
+            }
+        }
+        return $maskared;
+    }
 }

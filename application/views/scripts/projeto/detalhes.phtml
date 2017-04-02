@@ -19,13 +19,22 @@
                                 <!-- Natureza -->
                                 <div class="form-group col-md-5" style="padding-left: 0">
                                     <h5>Natureza do Projeto</h5>
-                                    <p><?php echo $this->project->natureza; ?></p>
+                                    <ul>
+                                        <?php foreach ($this->project->natureza as $natureza){ ?>
+                                            <li><?php echo $natureza; ?></li>
+                                        <?php } ?>
+                                    </ul>
+
                                 </div>
 
                                 <!-- Publico -->
                                 <div class="form-group col-md-5" style="padding-left: 0">
                                     <h5>Identificação do Público Atendido</h5>
-                                    <p><?php echo $this->project->publico_atendido;?></p>
+                                    <ul>
+                                        <?php foreach ($this->project->publico_atendido as $publico_atendido){ ?>
+                                            <li><?php echo $publico_atendido; ?></li>
+                                        <?php } ?>
+                                    </ul>
                                 </div>
 
                                 <!-- Faixa Etária -->
