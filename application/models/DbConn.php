@@ -1,10 +1,8 @@
 <?php
-/*
- * Model: DbConn
- * Classe de conexão a banco de dados
- * Zend FrameWork
- * author: Carlos E Rizzo (carlos.rizzo@fsvas.com)
- * date: 08/01/2013
+
+/**
+ * Class Application_Model_DbConn
+ * @author Cesar O Domingos <cesar_web@live.com>
  */
 class Application_Model_DbConn
 {
