@@ -38,6 +38,70 @@ class MapaController extends Zend_Controller_Action
         $this->view->title = 'Mapa de Projetos';
     }
 
+    public function internacionalAction()
+    {
+        $projetoModel = new Application_Model_Projeto();
+        $list1 = $projetoModel->listProject(array('status_id' => 1), 100);
+        $list2 = $projetoModel->listProject(array('status_id' => 2), 100);
+        $projects = array_merge($list1, $list2);
+
+        $projetosFetch = array();
+        foreach ($projects as $project) {
+            $project['territorio'] = explode(',', $project['territorio']);
+            $project['estado'] = explode(',', $project['estado']);
+            $project['cidade'] = explode(',', $project['cidade']);
+
+            $location = null;
+            if($project['territorio']){
+                foreach ($project['territorio'] as $pais){
+                    if($pais == 'BRA')
+                        continue;
+                    $location[] = $this->_helper->utils->fullNameCountry($pais);
+                }
+
+                if($project['estado']){
+                    foreach ($project['estado'] as $estado) {
+                        if($project['cidade']){
+                            foreach ($project['cidade'] as $cidade) {
+                                $location[] = $cidade .', '. $estado .', Brasil';
+                            }
+                        } else {
+                            $location[] = $estado .', Brasil';
+                        }
+                    }
+                }
+            }
+
+            foreach ($location as $val){
+                $url = 'http://maps.googleapis.com/maps/api/geocode/json?address='. urlencode($val) .'&sensor=false';
+
+                $cURL = curl_init($url);
+                curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($cURL, CURLOPT_FOLLOWLOCATION, true);
+                $resultado = curl_exec($cURL);
+
+                $resposta = curl_getinfo($cURL, CURLINFO_HTTP_CODE);
+                curl_close($cURL);
+
+                if ($resposta != '200') {
+                    continue;
+                } else {
+                    $return = json_decode($resultado);
+                }
+
+                $projetosFetch[] = array(
+                    'id'    => $project['id'],
+                    'nome'  => $project['nome'],
+                    'lat'   => $return->results[0]->geometry->location->lat,
+                    'lng'   => $return->results[0]->geometry->location->lng,
+                );
+            }
+        }
+
+        $this->view->title = 'Mapa de Projetos';
+        $this->view->projects = $projetosFetch;
+    }
+
     public function embedBrasilAction()
     {
         $this->_helper->layout->setLayout('embed');

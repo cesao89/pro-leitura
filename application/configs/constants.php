@@ -8,3 +8,6 @@ define('TITLE', 'Plataforma - Pró-Livro');
 
 // Debuga BaseDum
 define('DEBUG_BASEDUM', true);
+
+// Credenciais do Google Maps
+define("GOOGLE_MAPS_KEY", "AIzaSyCgPMZcn7DaOaQrhw9UElX-aSexJ5LhZg8");

@@ -376,6 +376,30 @@ class Application_Model_Projeto extends Application_Model_BaseDum
         return $project;
     }
 
+    public function listProject($where, $limit)
+    {
+        $projetoFetch = $this->where($where)->limit(0, $limit)->order_by('-id')->filter();
+
+        $projects = array();
+        foreach ($projetoFetch as $project){
+            $projetoStatusModel = new Application_Model_ProjetoStatus($project->status_id);
+            $projects[] = array(
+                'id'                => (isset($project->id) && !empty($project->id)) ? $project->id : null,
+                'user_id'           => (isset($project->user_id) && !empty($project->user_id)) ? $project->user_id : null,
+                'nome'              => (isset($project->nome) && !empty($project->nome)) ? $project->nome : null,
+                'territorio'        => (isset($project->localizacao_territorio) && !empty($project->localizacao_territorio)) ? $project->localizacao_territorio : null,
+                'regional'          => (isset($project->localizacao_regional) && !empty($project->localizacao_regional)) ? $project->localizacao_regional : null,
+                'estado'            => (isset($project->localizacao_estado) && !empty($project->localizacao_estado)) ? $project->localizacao_estado : null,
+                'cidade'            => (isset($project->localizacao_cidade) && !empty($project->localizacao_cidade)) ? $project->localizacao_cidade : null,
+                'vigencia_inicio'   => (isset($project->vigencia_inicio) && !empty($project->vigencia_inicio)) ? $project->vigencia_inicio : null,
+                'vigencia_fim'      => (isset($project->vigencia_fim) && !empty($project->vigencia_fim)) ? $project->vigencia_fim : null,
+                'status'            => $projetoStatusModel->status,
+            );
+        }
+
+        return $projects;
+    }
+
     private function dateFormat($dateIn, $formatOut='d/m/Y')
     {
         if(!$dateIn)

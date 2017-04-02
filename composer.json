@@ -1,6 +1,6 @@
 {
-  "name": "cod_it/pro_leitura",
-  "description": "plataforma_pro_leitura",
+  "name": "cod_it/pro_livro",
+  "description": "Plataforma Pró-Livro",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [

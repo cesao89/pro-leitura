@@ -1,0 +1,38 @@
+<div id="map" style="height: 700px;"></div>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_MAPS_KEY; ?>&callback=initMap"></script>
+<script>
+    function initMap() {
+        var projects = <?php echo json_encode($this->projects); ?>;
+        var map;
+        var myOptions = {
+            zoom: 4,
+            center: new google.maps.LatLng(-14.2350040, -51.9252800),
+            mapTypeId: 'roadmap'
+        };
+
+        // Setando o MAPA no HTML
+        map = new google.maps.Map($('#map')[0], myOptions);
+        map.setTilt(50);
+
+        // Add multiple markers to map
+        var infoWindow = new google.maps.InfoWindow(), projects, i;
+
+        for (var i = 0; i < projects.length; i++) {
+            var latlng = new google.maps.LatLng(projects[i].lat, projects[i].lng);
+            marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: projects[i].nome
+            });
+
+            // Add info window to marker
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infoWindow.setContent('<a href="'+ baseUrl +'/projeto/detalhes/i/'+ projects[i].id +'">'+ projects[i].nome +'</a>');
+                    infoWindow.open(map, marker);
+                }
+            })(marker, i));
+        }
+    }
+</script>
