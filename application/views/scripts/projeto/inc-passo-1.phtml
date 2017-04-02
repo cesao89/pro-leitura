@@ -178,13 +178,13 @@
 
                 <div class="col-md-6">
                     <div class="checkbox check-default">
-                        <input type="checkbox" name="genero[]" value="feminino" id="feminino" <?php echo (strstr($this->project->gereno, 'feminino')) ? "checked='checked'" : null; ?>>
+                        <input type="checkbox" name="genero[]" value="feminino" id="feminino" <?php echo (in_array('feminino', $this->project->genero)) ? "checked='checked'" : null; ?>>
                         <label for="feminino">Feminino</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="checkbox check-default">
-                        <input type="checkbox" name="genero[]" value="masculino" id="masculino" <?php echo (strstr($this->project->gereno, 'masculino')) ? "checked='checked'" : null; ?>>
+                        <input type="checkbox" name="genero[]" value="masculino" id="masculino" <?php echo (in_array('masculino', $this->project->genero)) ? "checked='checked'" : null; ?>>
                         <label for="masculino">Masculino</label>
                     </div>
                 </div>

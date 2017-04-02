@@ -9383,7 +9383,8 @@ body.rtl .footer-widget {
         margin-top: 18px;
     }
     .header-quick-nav {
-        display: none;
+        /*TODO: Verificar menu mobile*/
+        /*display: none;*/
     }
     .header .notifcation-center {
         margin-left: 15px;
@@ -9686,7 +9687,8 @@ body.rtl .footer-widget {
         margin-top: 16px;
     }
     .header-quick-nav {
-        display: none;
+        /*TODO: Verificar menu mobile*/
+        /*display: none;*/
     }
     .page-sidebar {
         position: fixed;

@@ -89,6 +89,9 @@ class MapaController extends Zend_Controller_Action
                     $return = json_decode($resultado);
                 }
 
+                if(!isset($return->results[0]->geometry->location) || empty($return->results[0]->geometry->location))
+                    continue;
+
                 $projetosFetch[] = array(
                     'id'    => $project['id'],
                     'nome'  => $project['nome'],

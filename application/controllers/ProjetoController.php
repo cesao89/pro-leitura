@@ -96,7 +96,7 @@ class ProjetoController extends Zend_Controller_Action
 
         $projectID = $this->getRequest()->getParam('i', null);
         if (!$projectID){
-            $this->_helper->FlashMessenger(array('error' => '[406] Ocorreu um erro para identificar o projeto.'));
+            $this->_helper->FlashMessenger(array('error' => 'Ocorreu um erro para identificar o projeto.'));
             $this->_helper->redirector('perfil', 'usuario');
         }
 
@@ -104,6 +104,12 @@ class ProjetoController extends Zend_Controller_Action
         $project = $projectModel->getFullProject($projectID);
         if($project->status_id != 1){
             $this->_helper->FlashMessenger(array('info' => 'Este projeto já foi concluido e não pode ser editado!'));
+            $this->_helper->redirector('index', 'projeto');
+        }
+
+
+        if($project->user_id != $this->session->usuario['id']){
+            $this->_helper->FlashMessenger(array('error' => 'Projeto não encontrado!'));
             $this->_helper->redirector('index', 'projeto');
         }
 

@@ -230,7 +230,7 @@ class Application_Model_Projeto extends Application_Model_BaseDum
             'natureza'                  => (isset($fetchProjeto[0]->natureza) && !empty($fetchProjeto[0]->natureza)) ? explode(',', $fetchProjeto[0]->natureza) : null,
             'publico_atendido'          => (isset($fetchProjeto[0]->publico_atendido) && !empty($fetchProjeto[0]->publico_atendido)) ? explode(',', $fetchProjeto[0]->publico_atendido) : null,
             'faixa_etaria'              => (isset($fetchProjeto[0]->faixa_etaria) && !empty($fetchProjeto[0]->faixa_etaria)) ? $fetchProjeto[0]->faixa_etaria : null,
-            'gereno'                    => (isset($fetchProjeto[0]->gereno) && !empty($fetchProjeto[0]->gereno)) ? $fetchProjeto[0]->gereno : null,
+            'genero'                    => (isset($fetchProjeto[0]->genero) && !empty($fetchProjeto[0]->genero)) ? explode(',', $fetchProjeto[0]->genero) : null,
             'atendidos_total'           => (isset($fetchProjeto[0]->atendidos_total) && !empty($fetchProjeto[0]->atendidos_total)) ? $fetchProjeto[0]->atendidos_total : 0,
             'atendidos_ultimo_ano'      => (isset($fetchProjeto[0]->atendidos_ultimo_ano) && !empty($fetchProjeto[0]->atendidos_ultimo_ano)) ? $fetchProjeto[0]->atendidos_ultimo_ano : 0,
             'atendidos_por_acao'        => (isset($fetchProjeto[0]->atendidos_por_acao) && !empty($fetchProjeto[0]->atendidos_por_acao)) ? $fetchProjeto[0]->atendidos_por_acao : 0,
