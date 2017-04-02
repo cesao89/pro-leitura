@@ -75,7 +75,7 @@ class Application_Model_ProjetoParceiros extends Application_Model_BaseDum
             'patrocinio_percentual' => array(
                 'name' => 'patrocinio_percentual',
                 'title' => 'Percentual do Patrocinio',
-                'type' => 'num',
+                'type' => 'char',
                 'required' => false,
                 'form' => false
             ),

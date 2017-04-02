@@ -75,7 +75,7 @@ class Application_Model_ProjetoEquipe extends Application_Model_BaseDum
             'quantidade' => array(
                 'name' => 'quantidade',
                 'title' => 'Quantidade',
-                'type' => 'num',
+                'type' => 'char',
                 'required' => false,
                 'form' => false
             ),

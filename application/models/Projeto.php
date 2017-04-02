@@ -138,21 +138,21 @@ class Application_Model_Projeto extends Application_Model_BaseDum
             'atendidos_total' => array(
                 'name' => 'atendidos_total',
                 'title' => 'Atendidos Total',
-                'type' => 'num',
+                'type' => 'char',
                 'required' => false,
                 'form' => false
             ),
             'atendidos_ultimo_ano' => array(
                 'name' => 'atendidos_ultimo_ano',
                 'title' => 'Atendidos no Ultimo Ano',
-                'type' => 'num',
+                'type' => 'char',
                 'required' => false,
                 'form' => false
             ),
             'atendidos_por_acao' => array(
                 'name' => 'atendidos_por_acao',
                 'title' => 'Atendidos por Ação/Evento',
-                'type' => 'num',
+                'type' => 'char',
                 'required' => false,
                 'form' => false
             ),
