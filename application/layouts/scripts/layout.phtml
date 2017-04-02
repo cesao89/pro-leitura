@@ -24,7 +24,8 @@
         ->appendStylesheet($this->baseUrl('/bundle/assets/plugins/bootstrap-select2/select2.css'))
         ->appendStylesheet('https://fonts.googleapis.com/icon?family=Material+Icons')
         ->appendStylesheet($this->baseUrl('/bundle/webarch/css/webarch.css'))
-        ->appendStylesheet($this->baseUrl('/bundle/assets/plugins/jquery-jvectormap/css/jquery-jvectormap-1.2.2.css'));
+        ->appendStylesheet($this->baseUrl('/bundle/assets/plugins/jquery-jvectormap/css/jquery-jvectormap-1.2.2.css'))
+        ->appendStylesheet('https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css');
 
     echo $this->headScript()
         ->appendFile($this->baseUrl('/bundle/assets/plugins/pace/pace.min.js'))
@@ -43,7 +44,12 @@
         ->appendFile($this->baseUrl('/bundle/webarch/js/webarch.js'))
         ->appendFile($this->baseUrl('/js/mask-er.js'))
         ->appendFile($this->baseUrl('/bundle/assets/plugins/jquery-jvectormap/js/jquery-jvectormap-1.2.2.min.js'))
-        ->appendFile($this->baseUrl('/bundle/assets/plugins/jquery-jvectormap/js/jquery-jvectormap-brazil.js'));
+        ->appendFile($this->baseUrl('/bundle/assets/plugins/jquery-jvectormap/js/jquery-jvectormap-brazil.js'))
+        ->appendFile($this->baseUrl('/bundle/assets/plugins/jquery-datatable/js/jquery.dataTables.min.js'))
+        ->appendFile($this->baseUrl('/bundle/assets/plugins/jquery-datatable/extra/js/dataTables.tableTools.min.js'))
+        ->appendFile($this->baseUrl('/bundle/assets/plugins/datatables-responsive/js/datatables.responsive.js'))
+        ->appendFile($this->baseUrl('/bundle/assets/plugins/datatables-responsive/js/lodash.min.js'))
+        ->appendFile('https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js');
     ?>
 </head>
 <!-- END HEAD -->

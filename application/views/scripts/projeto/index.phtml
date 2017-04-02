@@ -1,0 +1,61 @@
+<style>
+    #table_length select,
+    #table_filter input{
+        width: auto;
+    }
+</style>
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border">
+            <div class="row">
+                <div id="container">
+                    <div class="col-md-12">
+                        <?php if(isset($this->projects) && !empty($this->projects)){ ?>
+                            <table id="table" class="display" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nome do Projeto</th>
+                                <th>País(es)</th>
+                                <th>Estado(s)</th>
+                                <th>Cidade(s)</th>
+                                <th>Inicio da Vigência</th>
+                                <th>Fim da Vigência</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($this->projects as $project){ ?>
+                                <tr>
+                                    <td><?php echo $project['id']; ?></td>
+                                    <td><?php echo $project['nome']; ?></td>
+                                    <td><?php echo str_replace(',', ', ', $project['territorio']); ?></td>
+                                    <td><?php echo str_replace(',', ', ', $project['estado']); ?></td>
+                                    <td><?php echo str_replace(',', ', ', $project['cidade']); ?></td>
+                                    <td><?php echo $project['vigencia_inicio']; ?></td>
+                                    <td><?php echo $project['vigencia_fim']; ?></td>
+                                    <td>
+                                        <a href="<?php echo $this->baseUrl('/projeto/detalhes/i/' . $project['id']); ?>" class="btn btn-primary btn-sm my-tooltip" data-toggle="tooltip" title="Detalhes do Projeto">
+                                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                        <?php } else { ?>
+                            <p class="text-center">Nenhum projeto inscrito ou credenciado no momento.</p>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#table').dataTable({
+        "order": [[ 0, 'desc' ]],
+        "language": { "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json" }
+    });
+</script>

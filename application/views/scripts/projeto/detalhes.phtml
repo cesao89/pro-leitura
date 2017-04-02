@@ -3,7 +3,6 @@
     <div class="col-md-12">
         <div class="grid simple">
             <div class="grid-title no-border"><h3 style="text-transform: upp">Identificação da Experiência</h3></div>
-
             <div class="grid-body no-border">
                 <div class="row-fluid">
                     <div class="col-md-12">
@@ -116,13 +115,21 @@
                                         <!-- Territorio -->
                                         <div class="col-md-6">
                                             <h5>Território</h5>
-                                            <div class="form-group"><?php echo $this->project->localizacao_territorio; ?></div>
+                                            <ul>
+                                                <?php foreach ($this->project->localizacao_territorio as $territorio){ ?>
+                                                    <li><?php echo $this->fullCountryName($territorio); ?></li>
+                                                <?php } ?>
+                                            </ul>
                                         </div>
 
                                         <!-- Regional -->
                                         <div class="col-md-6">
                                             <h5>Regional</h5>
-                                            <?php echo $this->project->localizacao_regional; ?>
+                                            <ul>
+                                                <?php foreach (explode(',', $this->project->localizacao_regional) as $regional){ ?>
+                                                    <li><?php echo $regional; ?></li>
+                                                <?php } ?>
+                                            </ul>
                                         </div>
                                     </div>
 
@@ -130,13 +137,21 @@
                                         <!-- Estado -->
                                         <div class="col-md-6" style="margin-bottom: 20px">
                                             <h5>Estados</h5>
-                                            <?php for ($i=0; $i < count($this->project->localizacao_estado); $i++){ if($i != 0){ echo ", "; } echo $this->project->localizacao_estado[$i]; } ?>
+                                            <ul>
+                                                <?php foreach ($this->project->localizacao_estado as $estado){ ?>
+                                                    <li><?php echo $this->fullStateName($estado); ?></li>
+                                                <?php } ?>
+                                            </ul>
                                         </div>
 
                                         <!-- Cidades -->
                                         <div class="col-md-6" style="margin-bottom: 20px">
                                             <h5>Cidades</h5>
-                                            <?php for ($i=0; $i < count($this->project->localizacao_cidade); $i++){ if($i != 0){ echo ", "; } echo $this->project->localizacao_cidade[$i]; } ?>
+                                            <ul>
+                                                <?php foreach ($this->project->localizacao_cidade as $estado){ ?>
+                                                    <li><?php echo $estado; ?></li>
+                                                <?php } ?>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -145,22 +160,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <h5>Expectativas com o Cadastro do Projeto</h5>
-                                        <?php
-                                        foreach ($this->project->projeto_expectativa as $row){
-                                            if($row->expectativa == 'Outra'){ $outraValue = $row->detalhe; }?>
-
-                                            <div style="margin-bottom: 5px;" class="clearfix">
-                                                <div class="<?php echo ($row->expectativa == 'Outra') ? "col-md-3" : "col-md-12"; ?>" style="padding-left: 0">
+                                        <ul>
+                                            <?php foreach ($this->project->projeto_expectativa as $row){
+                                                if($row->expectativa == 'Outra'){
+                                                    $outraValue = $row->detalhe;
+                                                }
+                                                ?>
+                                                <li>
                                                     <?php
-                                                    echo $row->expectativa;
-                                                    echo ($row->expectativa == 'Outra') ? ': ' : null;
+                                                    echo ($row->expectativa == 'Outra') ? $row->expectativa .' - '. $row->detalhe : $row->expectativa;
                                                     ?>
-                                                </div>
-                                                <?php if($row->expectativa == 'Outra'){ ?>
-                                                    <div class="col-md-9" style="padding-left: 0"><?php echo $outraValue; ?></div>
-                                                <?php } ?>
-                                            </div>
-                                        <?php } ?>
+                                                </li>
+                                            <?php } ?>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

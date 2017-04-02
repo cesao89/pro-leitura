@@ -7426,6 +7426,41 @@ input[type="checkbox"] {
 .pagination ul > .active > span {
     background-color: #e8edf3;
 }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: #333 !important;
+    border: 0px !important;
+    background: transparent !important;
+}
+
+table.dataTable{
+    border-collapse: collapse !important;
+}
+
+table.dataTable tbody{
+    border: 1px solid #000;
+}
+
+table.dataTable.row-border tbody th,
+table.dataTable.row-border tbody td,
+table.dataTable.display tbody th,
+table.dataTable.display tbody td{
+    border-top: 1px solid #333 !important;
+}
+
+table.dataTable.stripe tbody tr.odd,
+table.dataTable.display tbody tr.odd,
+table.dataTable.display tbody tr.odd > .sorting_1,
+table.dataTable.order-column.stripe tbody tr.odd > .sorting_1{
+    background-color: #fca700 !important;
+}
+
+table.dataTable tbody tr,
+table.dataTable.display tbody tr.even > .sorting_1,
+table.dataTable.order-column.stripe tbody tr.even > .sorting_1{
+    background-color: #fcbc3f !important;
+}
 /*------------------------------------------------------------------
 [15. Charts]
 */

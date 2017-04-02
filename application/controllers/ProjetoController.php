@@ -28,16 +28,36 @@ class ProjetoController extends Zend_Controller_Action
         $_POST = $this->_helper->utils->escape_array($_POST);
     }
 
-    // TODO: Exibir os projetos publicos (status IN (...briefing...))
     public function indexAction()
     {
+        $list1 = $this->listProjects(array('status_id' => 3));
+        $list2 = $this->listProjects(array('status_id' => 4));
+        $projects = array_merge($list1, $list2);
+
+        $this->view->title = 'Projetos';
+        $this->view->projects = $projects;
+    }
+
+    public function meusProjetosAction()
+    {
+        if (!$this->auth->is_logged($this->session))
+            $this->_helper->redirector('login', 'usuario');
+
+        $list1 = $this->listProjects(array('status_id' => 1, 'user_id' => $this->session->usuario['id']));
+        $list2 = $this->listProjects(array('status_id' => 2, 'user_id' => $this->session->usuario['id']));
+        $list3 = $this->listProjects(array('status_id' => 3, 'user_id' => $this->session->usuario['id']));
+        $list4 = $this->listProjects(array('status_id' => 4, 'user_id' => $this->session->usuario['id']));
+        $projects = array_merge($list1, $list2, $list3, $list4);
+
+        $this->view->title = 'Projetos';
+        $this->view->projects = $projects;
     }
 
     public function detalhesAction()
     {
         $projectID = $this->getRequest()->getParam('i', null);
         if (!$projectID){
-            $this->_helper->FlashMessenger(array('error' => '[406] Ocorreu um erro para identificar o projeto.'));
+            $this->_helper->FlashMessenger(array('error' => 'Ocorreu um erro para identificar o projeto.'));
             $this->_helper->redirector('index', 'index');
         }
 
@@ -51,20 +71,22 @@ class ProjetoController extends Zend_Controller_Action
 
     public function cadastroAction()
     {
-        $this->_helper->layout->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(TRUE);
-
         if (!$this->auth->is_logged($this->session))
             $this->_helper->redirector('login', 'usuario');
 
-        $sql = "INSERT INTO `proleitura`.`projeto` (`user_id`) VALUES ('". $this->session->usuario['id'] ."')";
-        $this->auth->execute_sql($sql);
-        $idProject = $this->auth->get_last_inserted();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $nome = $this->getRequest()->getParam('nome');
+            if($nome){
+                $sql = "INSERT INTO `proleitura`.`projeto` (`user_id`, `nome`) VALUES ('". $this->session->usuario['id'] ."', '". $nome ."')";
+                $this->auth->execute_sql($sql);
+                $idProject = $this->auth->get_last_inserted();
 
-        if ($idProject)
-            $this->_helper->redirector('formulario', 'projeto', null, array('i' => $idProject));
+                if ($idProject)
+                    $this->_helper->redirector('formulario', 'projeto', null, array('i' => $idProject));
+            }
+        }
 
-        die('Ops, algo deu errado');
+        $this->view->title = 'Cadastrar Projeto';
     }
 
     public function formularioAction()
@@ -245,6 +267,26 @@ class ProjetoController extends Zend_Controller_Action
         }
     }
 
+    public function excluirAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        $projectID = $this->getRequest()->getParam('i', null);
+
+        if(!$projectID){
+            $this->_helper->FlashMessenger(array('error' => 'Projeto não encontrado'));
+            $this->_helper->redirector('meus-projetos', 'projeto');
+        }
+
+        # Salvando o PROJETO
+        $projetoModel = new Application_Model_Projeto($projectID);
+        $projetoModel->del();
+
+        $this->_helper->FlashMessenger(array('success' => 'Projeto deletado com Sucesso!'));
+        $this->_helper->redirector('meus-projetos', 'projeto');
+    }
+
     private function ajusteDados($param, $id = null)
     {
         $projectToSave = array();
@@ -401,5 +443,30 @@ class ProjetoController extends Zend_Controller_Action
         }
 
         return $projectToSave;
+    }
+
+    private function listProjects($where, $limit=500)
+    {
+        $projetoModel = new Application_Model_Projeto();
+        $projetoFetch = $projetoModel->where($where)->limit(0,$limit)->order_by('-id')->filter();
+
+        $projects = array();
+        foreach ($projetoFetch as $project){
+            $projetoStatusModel = new Application_Model_ProjetoStatus($project->status_id);
+            $projects[] = array(
+                'id'                => (isset($project->id) && !empty($project->id)) ? $project->id : null,
+                'user_id'           => (isset($project->user_id) && !empty($project->user_id)) ? $project->user_id : null,
+                'nome'              => (isset($project->nome) && !empty($project->nome)) ? $project->nome : null,
+                'territorio'        => (isset($project->localizacao_territorio) && !empty($project->localizacao_territorio)) ? $this->_helper->utils->fullNameCountry($project->localizacao_territorio, ',') : null,
+                'regional'          => (isset($project->localizacao_regional) && !empty($project->localizacao_regional)) ? $project->localizacao_regional : null,
+                'estado'            => (isset($project->localizacao_estado) && !empty($project->localizacao_estado)) ? $project->localizacao_estado : null,
+                'cidade'            => (isset($project->localizacao_cidade) && !empty($project->localizacao_cidade)) ? $project->localizacao_cidade : null,
+                'vigencia_inicio'   => (isset($project->vigencia_inicio) && !empty($project->vigencia_inicio)) ? $this->_helper->utils->dateFormat($project->vigencia_inicio, 'm/Y') : null,
+                'vigencia_fim'      => (isset($project->vigencia_fim) && !empty($project->vigencia_fim)) ? ($project->vigencia_fim != '0000-00-00') ? $this->_helper->utils->dateFormat($project->vigencia_fim, 'm/Y') : null : null,
+                'status'            => $projetoStatusModel->status,
+            );
+        }
+
+        return $projects;
     }
 }
