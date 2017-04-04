@@ -120,12 +120,13 @@ class UsuarioController extends Zend_Controller_Action
     public function cadastroAction()
     {
         # Verifica se esta logado
-        if (!$this->auth->is_logged($this->session))
-            $this->_helper->redirector('login', 'usuario');
+        if ($this->auth->is_logged($this->session)){
+            # Verifica se é gestor
+            if($this->session->usuario['profile'] != 'gestor')
+                $this->_helper->redirector('perfil', 'usuario');
+        }
 
-        # Verifica se é gestor
-        if($this->session->usuario['profile'] != 'gestor')
-            $this->_helper->redirector('perfil', 'usuario');
+
 
         $usuario = new Application_Model_Usuario();
 
@@ -172,7 +173,7 @@ class UsuarioController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setNoRender(TRUE);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->_helper->FlashMessenger(array('error' => '[401] Ocorreu um erro para cadastrar o usuário.'));
+            $this->_helper->FlashMessenger(array('error' => 'Ocorreu um erro para cadastrar o usuário.'));
         }
 
         $param = $this->getAllParams();
@@ -211,10 +212,10 @@ class UsuarioController extends Zend_Controller_Action
                 $this->_helper->FlashMessenger(array('success' => 'Usuário cadastrado com sucesso.'));
                 $this->_helper->redirector('login', 'usuario');
             } else {
-                $this->_helper->FlashMessenger(array('error' => '[409] Ocorreu um erro para cadastrar o usuário.'));
+                $this->_helper->FlashMessenger(array('error' => 'Ocorreu um erro para cadastrar o usuário.'));
             }
         } else {
-            $this->_helper->FlashMessenger(array('error' => '[406] Dados inválido.'));
+            $this->_helper->FlashMessenger(array('error' => 'Dados inválido.'));
         }
 
         $this->_helper->redirector('cadastro', 'usuario');
