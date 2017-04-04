@@ -16,3 +16,13 @@ define("DB_PASS", "");
 
 // Credenciais do Google Maps
 define("GOOGLE_MAPS_KEY", "");
+
+// Mail Config
+define("MAIL_HOST", "smtp.gmail.com");
+define("MAIL_AUTH", true);
+define("MAIL_USER", "");
+define("MAIL_PASS", "");
+define("MAIL_SECURE", "ssl");
+define("MAIL_PORT", 465);
+define("MAIL_FROM", "");
+define("MAIL_FROM_NAME", "Plataforma Pro-Livro");

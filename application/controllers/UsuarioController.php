@@ -303,20 +303,19 @@ class UsuarioController extends Zend_Controller_Action
 
         $mail = new PHPMailer;
 
-//        $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+//        $mail->SMTPDebug = 1;                     // debugging: 1 = errors and messages, 2 = messages only
 
-        $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
-        $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'cesao89.web@gmail.com';            // SMTP username
-        $mail->Password = 'Rasec22884466';                    // SMTP password
-        $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-        $mail->Port = 465;                                    // TCP port to connect to
+        $mail->isSMTP();                    // Set mailer to use SMTP
+        $mail->Host         = MAIL_HOST;    // Specify main and backup SMTP servers
+        $mail->SMTPAuth     = MAIL_AUTH;    // Enable SMTP authentication
+        $mail->Username     = MAIL_USER;    // SMTP username
+        $mail->Password     = MAIL_PASS;    // SMTP password
+        $mail->SMTPSecure   = MAIL_SECURE;  // Enable TLS encryption, `ssl` also accepted
+        $mail->Port         = MAIL_PORT;    // TCP port to connect to
 
-        $mail->setFrom('cesao89.web@gmail.com', 'Plataforma Pro-Livro');
-        $mail->addAddress($email);                            // Add a recipient
-
-        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->setFrom(MAIL_FROM, MAIL_FROM_NAME);
+        $mail->addAddress($email);          // Add a recipient
+        $mail->isHTML(true);                // Set email format to HTML
 
         $mail->Subject = $subject;
         $mail->Body    = $body;
