@@ -313,11 +313,14 @@ class ProjetoController extends Zend_Controller_Action
             $this->_helper->redirector('index', 'projeto');
 
         $projetoModel = new Application_Model_Projeto();
-        $projetoFetch = $projetoModel->filter();
+        $userModel = new Application_Model_Usuario();
+        $statusModel = new Application_Model_ProjetoStatus();
 
+        $projetoFetch = $projetoModel->filter();
         foreach ($projetoFetch as $projeto) {
-            $userModel = new Application_Model_Usuario($projeto->user_id);
-            $statusModel = new Application_Model_ProjetoStatus($projeto->status_id);
+            $userModel->get($projeto->user_id);
+            $statusModel->get($projeto->status_id);
+
             $projeto->usuario = $userModel->name;
             $projeto->status = $statusModel->status;
         }
