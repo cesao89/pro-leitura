@@ -204,6 +204,22 @@ class Application_Model_Projeto extends Application_Model_BaseDum
                 'type' => 'char',
                 'required' => false,
                 'form' => false
+            ),
+            'created_at' => array(
+                'name' => 'created_at',
+                'title' => 'Data de Criação',
+                'type' => 'date',
+                'required' => false,
+                'form' => false,
+            ),
+            'updated_at' => array(
+                'name' => 'updated_at',
+                'title' => 'Data de Atualização',
+                'type' => 'date',
+                'required' => false,
+                'default' => date('Y-m-d H:i:s'),
+                'auto' => true,
+                'form' => false,
             )
         );
 

@@ -119,10 +119,13 @@ class UsuarioController extends Zend_Controller_Action
 
     public function cadastroAction()
     {
-        // Verifica se esta logado
-        if ($this->auth->is_logged($this->session) && $this->session->usuario['profile'] != 'gestor') {
+        # Verifica se esta logado
+        if (!$this->auth->is_logged($this->session))
+            $this->_helper->redirector('login', 'usuario');
+
+        # Verifica se é gestor
+        if($this->session->usuario['profile'] != 'gestor')
             $this->_helper->redirector('perfil', 'usuario');
-        }
 
         $usuario = new Application_Model_Usuario();
 
@@ -132,7 +135,7 @@ class UsuarioController extends Zend_Controller_Action
         if(isset($this->session->form['user']) && !empty($this->session->form['user']))
             $usuario->set_values($this->session->form['user']);
 
-        // Seta variáveis na View
+        # Seta variáveis na View
         $this->view->title = "Cadastrar Usuário";
         $this->view->form_fields = $usuario->fields;
     }
@@ -177,10 +180,10 @@ class UsuarioController extends Zend_Controller_Action
         $toSave = array(
             'profile_id'    => (isset($param['profile_id']) && !empty($param['profile_id'])) ? $param['profile_id'] : 2,
             'name'          => $param['name'],
-            'email'         => (isset($param['email']) && !empty($param['email'])),
+            'email'         => (isset($param['email']) && !empty($param['email'])) ? $param['email'] : null,
             'phone'         => preg_replace('/\D/', '', $param['phone']),
             'num_document'  => preg_replace('/\D/', '', $param['num_document']),
-            'password'      => (isset($param['password']) && !empty($param['password'])),
+            'password'      => (isset($param['password']) && !empty($param['password'])) ? md5($param['password']) : null,
             'status'        => (isset($param['status']) && !empty($param['status'])) ? $param['status'] : 1
         );
 
@@ -189,9 +192,11 @@ class UsuarioController extends Zend_Controller_Action
         $usuario = new Application_Model_Usuario();
         if(isset($param['i']) && !empty($param['i'])){
             unset($toSave['email']);
-            unset($toSave['password']);
             $usuario->get($param['i']);
         }
+
+        if(!isset($toSave['password']) || empty($toSave['password']))
+            unset($toSave['password']);
 
         if ($usuario->validate_form($toSave)) {
             if ($usuario->save()) {
@@ -215,190 +220,122 @@ class UsuarioController extends Zend_Controller_Action
         $this->_helper->redirector('cadastro', 'usuario');
     }
 
-    // TODO: OLD
-    /**
-     * Action Lista
-     */
-    public function listaAction() {
-        $auth = new Application_Model_Auth();
-        if ($auth->hasPerm($this->session->atendente['permissoes'], 'import-user')) {
-            $this->_helper->redirector('denied', 'Auth');
-        }
+    public function adminAction()
+    {
+        # Verifica se esta logado
+        if (!$this->auth->is_logged($this->session))
+            $this->_helper->redirector('login', 'usuario');
 
-        $search = $this->getRequest()->getQuery('search', null);
-        $where = '';
-        if ($search) {
-            if ($this->session->atendente['superuser'] == 1) {
-                $where = ' WHERE (LOWER(user.name) like "%' . strtolower($search) . '%" OR 
-                                 user.username = "' . strtolower($search) . '") ';
-            } else {
-                $where = ' AND (LOWER(user.name) like "%' . strtolower($search) . '%" OR 
-                                 user.username = "' . strtolower($search) . '") ';
-            }
-        }
+        # Verifica se é gestor
+        if($this->session->usuario['profile'] != 'gestor')
+            $this->_helper->redirector('perfil', 'usuario');
 
-        $atendente = new Application_Model_Atendente();
+        $usuarioModel = new Application_Model_Usuario();
 
-        $limit = PAGINATOR_LIMIT;
-        if ($this->getRequest()->getParam('p')) {
-            $page = $this->getRequest()->getParam('p');
-        } else {
-            $page = 1;
-        }
-        $offset = ($page * $limit) - $limit;
-        $atendenteTotal = $atendente->total();
-        $pagination = array(
-            'page' => $page,
-            'total_pages' => ceil($atendenteTotal / $limit),
-            'link' => $this->view->baseUrl() . '/atendente/lista',
-        );
-
-        $limit = ' LIMIT ' . $offset . ',' . $limit . '';
-
-        // Se for SuperUser lista todos os atendentes
-        if ($this->session->atendente['superuser'] == 1) {
-            $atendenteFetch = $atendente->getSuperUserList($where, $limit);
-
-            // Se não for SuperUser lista atendentes de acordo com a Empresa
-        } else {
-            $atendenteFetch = $atendente->getUserWorkplaceList($this->session->atendente['id'], $this->session->atendente['workplace'], $where, $limit);
-        }
-
-        // Seta variáveis na View
-        $this->view->rows = $atendenteFetch;
-        $this->view->title = "Administração de atendentes / Lista";
-        $this->view->menu_adm_user_lista_active = 'class=active';
-        $this->view->search = $search;
-        $this->view->pagination = $pagination;
+        $this->view->title = 'Administração de Usuários';
+        $this->view->list = $usuarioModel->filter();
     }
 
-    /**
-     * Action Apagar
-     * @method  GET
-     * param: id do usuário
-     */
-    public function apagarAction() {
-        if (!$this->getRequest()->getParam('i')) {
-            $this->_helper->FlashMessenger(
-                    array('error' => 'Atendente não encontrado.')
-            );
-            $this->_helper->redirector('lista', 'atendente');
-        }
-        $id = $this->getRequest()->getParam('i');
-        $atendente = new Application_Model_Atendente($id);
-        $atendente->execute_sql('DELETE FROM user_has_permission WHERE iduser=' . $id);
-        try {
-            $atendente->del();
-            $this->_helper->FlashMessenger(
-                    array('success' => 'Atendente deletado com sucesso.')
-            );
-        } catch (Exception $e) {
-            $this->_helper->FlashMessenger(
-                    array('error' => 'Não foi possível deletar o usuário pois existem dependencias de log.')
-            );
-        }
+    public function statusAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(TRUE);
 
-        // Grava log de Administração
-        $atendente->addAdmLog(array('action' => 'delete-user',
-            'extra' => json_encode(array($atendente->name, $id)),
-            'id_user' => $this->session->atendente['id'],
-        ));
+        # Verifica se esta logado
+        if (!$this->auth->is_logged($this->session))
+            $this->_helper->redirector('login', 'usuario');
 
-        $this->_helper->redirector('lista', 'Atendente');
+        # Verifica se é gestor
+        if($this->session->usuario['profile'] != 'gestor')
+            $this->_helper->redirector('perfil', 'usuario');
+
+        $userId = $this->getRequest()->getParam('i', null);
+        $statusId = $this->getRequest()->getParam('s', null);
+
+        # Verifica se foi passado o usuário
+        if(!isset($userId) || empty($userId))
+            $this->_helper->redirector('perfil', 'usuario');
+
+        # Verifica se foi passado o status para editar
+        if(!isset($statusId) || empty($statusId))
+            $this->_helper->redirector('perfil', 'usuario');
+
+        $usuarioModel = new Application_Model_Usuario($userId);
+        $usuarioModel->set_values(array('status' => $statusId));
+        $usuarioModel->save();
+
+        $this->_helper->redirector('admin', 'usuario');
     }
 
-    /**
-     * Método para resetar a senha
-     * @method  POST
-     */
-    public function resetarSenhaAction() {
-        if (!$this->getRequest()->getParam('i')) {
-            $this->_helper->FlashMessenger(
-                    array('error' => 'Atendente não encontrado.')
-            );
-            $this->_helper->redirector('lista', 'atendente');
-        }
-        // Pega o atendente
-        $atendente = new Application_Model_Atendente($this->getRequest()->getParam('i'));
+    public function esqueciSenhaAction()
+    {
+        $newPassword = $this->randomPassword();
+        $subject = 'Recuperar Senha - Plataforma Pro-Livro';
+        $body = 'Ol&aacute;,<br /><br />Sua nova senha &eacute;: '. $newPassword .'<br />Voc&ecirc; pode alterar sua senha acessando o sistema e clicando no <b>SEU NOME > EDITAR</b>.<br /><br />Plataforma - Pr&oacute;-Livro';
 
-        // Verifica se foi POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $email = $this->getRequest()->getParam('mail', null);
 
-            // Recebe valores do Post
-            $senhaResetarSenha = $this->getRequest()->getPost('senhaResetarSenha');
-            $confsenhaResetarSenha = $this->getRequest()->getPost('confsenhaResetarSenha');
-            $search = $this->getRequest()->getPost('senhaSearch', null);
+        # Verifica se é e-mail válido
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+            die("E-mail inválido, por favor digite um e-mail válido");
 
-            if ($atendente->validatePassword($senhaResetarSenha)) {
+        # Pesquisa e-mail
+        $usuarioModel = new Application_Model_Usuario();
+        $findUser = $usuarioModel->where(array('email' => $email))->limit(0,1)->filter();
 
-                // Verifica se senha e confirmação sao iguais
-                if ($senhaResetarSenha != $confsenhaResetarSenha) {
-                    $this->_helper->FlashMessenger(
-                            array('error' => 'Senha e confirmação de senha diferentes.')
-                    );
-                    $this->redirect("/atendente/lista/?search=" . $search);
-                } else {
-                    // Atualiza senha
-                    $atendente->execute_sql('UPDATE user SET password = MD5("' . $senhaResetarSenha . '") 
-                                                                  WHERE id = ' . $this->getRequest()->getParam('i'));
-                    $this->_helper->FlashMessenger(
-                            array('success' => 'Senha resetada com sucesso.')
-                    );
+        # Verifica se encontrou algum usuário
+        if(!isset($findUser[0]->id) || empty($findUser[0]->id))
+            die("Usuário não encontrado, por favor verifique o e-mail digitado");
 
-                    // Grava log de Administração
-                    $atendente->addAdmLog(array('action' => 'reset-user-passwrod',
-                        'extra' => json_encode(array($atendente->name, $this->getRequest()->getParam('i'))),
-                        'id_user' => $this->session->atendente['id'],
-                    ));
+        # Estancia o usuário e altera a senha com MD5
+        $usuarioModel->get($findUser[0]->id);
+        $usuarioModel->set_values(array('password' => md5($newPassword)));
+        $usuarioModel->save();
 
-                    if (!$search) {
-                        $this->_helper->redirector('lista', 'atendente');
-                    } else {
-                        $this->redirect("/atendente/lista/?search=" . $search);
-                    }
-                }
-            } else {
-                $this->_helper->FlashMessenger(
-                        array('error' => 'Senha inválida.')
-                );
-                $this->redirect("/atendente/lista/?search=" . $search);
-            }
+        $return = $this->sendMail($email, $subject, $body);
+        die($return);
+    }
+
+    private function sendMail($email, $subject, $body)
+    {
+        require APPLICATION_PATH .'/../library/PHPMailer-master/PHPMailerAutoload.php';
+
+        $mail = new PHPMailer;
+
+//        $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'cesao89.web@gmail.com';            // SMTP username
+        $mail->Password = 'Rasec22884466';                    // SMTP password
+        $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 465;                                    // TCP port to connect to
+
+        $mail->setFrom('cesao89.web@gmail.com', 'Plataforma Pro-Livro');
+        $mail->addAddress($email);                            // Add a recipient
+
+        $mail->isHTML(true);                                  // Set email format to HTML
+
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+
+        if(!$mail->send()) {
+            echo 'Houve uma falha no envio do e-mail, por favor tente novamente mais tarde.';
+        } else {
+            echo 'Um e-mail foi enviado para você com uma nova senha!';
         }
     }
 
-    /**
-     * Ativar e Desativar Usuário
-     * @method  GET
-     */
-    public function ativarDesativarAction() {
-        if (!$this->getRequest()->getParam('i')) {
-            $this->_helper->FlashMessenger(
-                    array('error' => 'Atendente não encontrado.')
-            );
-            $this->_helper->redirector('lista', 'atendente');
+    private function randomPassword()
+    {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass = array();
+        $alphaLength = strlen($alphabet) - 1;
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
         }
-
-        $id = $this->getRequest()->getParam('i');
-        $atendente = new Application_Model_Atendente($id);
-
-        if ($atendente->enabled == 1) {
-            $atendente->set_values(array('enabled' => -1));
-            $action = 'deactivate-user';
-        } else {
-            $atendente->set_values(array('enabled' => 1));
-            $action = 'activate-user';
-        }
-        $atendente->save();
-
-        // Grava log de Administração
-        $atendente->addAdmLog(array('action' => $action,
-            'extra' => json_encode(array($atendente->name, $id)),
-            'id_user' => $this->session->atendente['id'],
-        ));
-
-        $this->_helper->FlashMessenger(
-                array('success' => 'Atendente alterado com sucesso.')
-        );
-        $this->_helper->redirector('lista', 'atendente');
+        return implode($pass); //turn the array into a string
     }
 }

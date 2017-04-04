@@ -13,29 +13,45 @@
         <br>
         <form class="login-form validate" id="login-form" method="post" name="login-form">
             <div class="row">
-                <div class="form-group col-md-10">
+                <div class="form-group col-md-12">
                     <label class="form-label" style="color: #dedede">E-mail</label>
                     <input class="form-control" id="usuario" name="usuario" type="email" required="required" autofocus="autofocus">
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-md-10">
+                <div class="form-group col-md-12">
                     <label class="form-label" style="color: #dedede">Senha</label> <span class="help"></span>
                     <input class="form-control" id="senha" name="senha" type="password" required>
                 </div>
             </div>
             <div class="row">
-                <div class="control-group col-md-10">
+                <div class="control-group col-md-6">
                     <div class="checkbox checkbox check-success">
-                        <a href="<?php echo $this->baseUrl('usuario/esqueci-senha'); ?>">esqueci minha senha</a>
+                        <a href="javascript:;" id="esqueci-senha">esqueci minha senha</a>
                     </div>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary btn-cons pull-right" type="submit">Entrar</button>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-10">
-                    <button class="btn btn-primary btn-cons pull-right" type="submit">Entrar</button>
+                <div class="col-md-12">
+                    <div id="result"></div>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#esqueci-senha').on('click', function (e) {
+            e.preventDefault();
+            $('#result').html('Enviado...');
+            var mail = $('#usuario').val();
+            $.post(baseUrl +'/usuario/esqueci-senha', {mail: mail}, function (data) {
+                $('#result').html(data);
+            })
+        })
+    });
+</script>

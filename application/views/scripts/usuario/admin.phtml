@@ -1,0 +1,78 @@
+<style>
+    #table_length select,
+    #table_filter input{
+        width: auto;
+    }
+</style>
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border">
+            <div class="row m-b-10">
+                <div class="col-md-12 text-right">
+                    <a href="<?php echo $this->baseUrl('/usuario/cadastro'); ?>" class="btn btn-success"><i class="fa fa-fw fa-user-plus"></i> Novo Usuário</a>
+                </div>
+            </div>
+            <div class="row">
+                <div id="container">
+
+                    <div class="col-md-12">
+                        <?php if(isset($this->list) && !empty($this->list)){ ?>
+                            <table id="table" class="display" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nome</th>
+                                <th>Perfil</th>
+                                <th>E-mail</th>
+                                <th>Status</th>
+                                <th>Data de Cadastro</th>
+                                <th>Ação</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($this->list as $user){ ?>
+                                <tr>
+                                    <td><?php echo $user->id; ?></td>
+                                    <td><?php echo $user->name; ?></td>
+                                    <td><?php echo ($user->profile_id == 1) ? 'Gestor' : 'Proponente'; ?></td>
+                                    <td><?php echo $user->email; ?></td>
+                                    <td><?php echo ($user->status == 1) ? '<b style="color:green">Ativo</b>' : '<b style="color:red">Inativo</b>'; ?></td>
+                                    <td><?php echo $user->created_at; ?></td>
+                                    <td>
+                                        <a href="<?php echo $this->baseUrl('/usuario/perfil/i/'. $user->id); ?>" class="btn btn-primary btn-sm my-tooltip" data-toggle="tooltip" title="Detalhes do Usuário">
+                                            <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                                        </a>
+                                        &nbsp;
+                                        &nbsp;
+                                        <a href="<?php echo $this->baseUrl('/usuario/editar/i/'. $user->id); ?>" class="btn btn-primary btn-sm my-tooltip" data-toggle="tooltip" title="Editar Usuário">
+                                            <i class="fa fa-edit fa-fw" aria-hidden="true"></i>
+                                        </a>
+                                        &nbsp;
+                                        &nbsp;
+                                        <?php
+                                        $statsTo = ($user->status == 1) ? '2' : '1';
+                                        ?>
+                                        <a href="<?php echo $this->baseUrl('/usuario/status/i/'. $user->id .'/s/'. $statsTo); ?>" class="btn btn-primary btn-sm my-tooltip" data-toggle="tooltip" title="<?php echo ($user->status == 1) ? 'Desativar' : 'Ativar'; ?> Usuário">
+                                            <i class="fa <?php echo ($user->status == 1) ? 'fa-eye-slash' : 'fa-eye'; ?> fa-fw" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                        <?php } else { ?>
+                            <p class="text-center">Nenhum projeto inscrito ou credenciado no momento.</p>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#table').dataTable({
+        "order": [[ 0, 'desc' ]],
+        "language": { "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json" }
+    });
+</script>

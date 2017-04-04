@@ -55,6 +55,16 @@
                     <li class="quicklinks" style="padding: 5px;">
                         <a href="<?php echo $this->baseUrl('/usuario/cadastro'); ?>" class="">Usuário</a>
                     </li>
+                    <?php if(strtolower($this->usuario['profile']) == 'gestor'){ ?>
+                        <li class="quicklinks" style="padding: 5px;">&nbsp;</li>
+                        <li class="quicklinks" style="padding: 5px;">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">Administração&nbsp;&nbsp;<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php echo $this->baseUrl('/usuario/admin'); ?>">Usuários</a></li>
+                                <li><a href="<?php echo $this->baseUrl('/projeto/admin'); ?>">Projetos</a></li>
+                            </ul>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
             <!-- END TOP NAVIGATION MENU -->

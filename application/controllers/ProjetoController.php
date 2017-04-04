@@ -91,28 +91,38 @@ class ProjetoController extends Zend_Controller_Action
 
     public function formularioAction()
     {
-        if (!$this->auth->is_logged($this->session))
-            $this->_helper->redirector('login', 'usuario');
-
         $projectID = $this->getRequest()->getParam('i', null);
+
+        # Verifica se está logado
+        if (!$this->auth->is_logged($this->session))
+        $this->_helper->redirector('login', 'usuario');
+
+        # Verifica se foi passado ID
         if (!$projectID){
             $this->_helper->FlashMessenger(array('error' => 'Ocorreu um erro para identificar o projeto.'));
             $this->_helper->redirector('perfil', 'usuario');
         }
 
+        # Busca todas informações do projeto
         $projectModel = new Application_Model_Projeto();
         $project = $projectModel->getFullProject($projectID);
-        if($project->status_id != 1){
-            $this->_helper->FlashMessenger(array('info' => 'Este projeto já foi concluido e não pode ser editado!'));
-            $this->_helper->redirector('index', 'projeto');
+
+        # Verifica se não é gestor
+        if($this->session->usuario['profile'] != 'gestor'){
+            # Verifica se o status do projeto é diferente de EDITANDO
+            if($project->status_id != 1){
+                $this->_helper->FlashMessenger(array('info' => 'Este projeto já foi concluido e não pode ser editado!'));
+                $this->_helper->redirector('index', 'projeto');
+            }
+
+            # Verifica se o usuário logado é o dono do projeto
+            if($project->user_id != $this->session->usuario['id']){
+                $this->_helper->FlashMessenger(array('error' => 'Projeto não encontrado!'));
+                $this->_helper->redirector('index', 'projeto');
+            }
         }
 
-
-        if($project->user_id != $this->session->usuario['id']){
-            $this->_helper->FlashMessenger(array('error' => 'Projeto não encontrado!'));
-            $this->_helper->redirector('index', 'projeto');
-        }
-
+        # Views
         $this->view->title = 'Cadastrar Projeto';
         $this->view->idProject = $projectID;
         $this->view->project = $project;
@@ -290,6 +300,61 @@ class ProjetoController extends Zend_Controller_Action
 
         $this->_helper->FlashMessenger(array('success' => 'Projeto deletado com Sucesso!'));
         $this->_helper->redirector('meus-projetos', 'projeto');
+    }
+
+    public function adminAction()
+    {
+        # Verifica se esta logado
+        if (!$this->auth->is_logged($this->session))
+            $this->_helper->redirector('login', 'usuario');
+
+        # Verifica se é gestor
+        if($this->session->usuario['profile'] != 'gestor')
+            $this->_helper->redirector('index', 'projeto');
+
+        $projetoModel = new Application_Model_Projeto();
+        $projetoFetch = $projetoModel->filter();
+
+        foreach ($projetoFetch as $projeto) {
+            $userModel = new Application_Model_Usuario($projeto->user_id);
+            $statusModel = new Application_Model_ProjetoStatus($projeto->status_id);
+            $projeto->usuario = $userModel->name;
+            $projeto->status = $statusModel->status;
+        }
+
+        $this->view->title = 'Administração de Projetos';
+        $this->view->list = $projetoFetch;
+    }
+
+    public function statusAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(TRUE);
+
+        # Verifica se esta logado
+        if (!$this->auth->is_logged($this->session))
+            $this->_helper->redirector('login', 'usuario');
+
+        # Verifica se é gestor
+        if($this->session->usuario['profile'] != 'gestor')
+            $this->_helper->redirector('perfil', 'usuario');
+
+        $projectId = $this->getRequest()->getParam('i', null);
+        $statusId = $this->getRequest()->getParam('s', null);
+
+        # Verifica se foi passado o PROJETO
+        if(!isset($projectId) || empty($projectId))
+            $this->_helper->redirector('perfil', 'usuario');
+
+        # Verifica se foi passado o status para editar
+        if(!isset($statusId) || empty($statusId))
+            $this->_helper->redirector('perfil', 'usuario');
+
+        $projetoModel = new Application_Model_Projeto($projectId);
+        $projetoModel->set_values(array('status_id' => $statusId));
+        $projetoModel->save();
+
+        $this->_helper->redirector('admin', 'projeto');
     }
 
     private function ajusteDados($param, $id = null)

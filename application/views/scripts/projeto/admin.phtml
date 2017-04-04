@@ -1,0 +1,92 @@
+<style>
+    #table_length select,
+    #table_filter input{
+        width: auto;
+    }
+</style>
+<div class="col-md-12">
+    <div class="grid simple">
+        <div class="grid-title no-border">
+            <div class="row m-b-10">
+                <div class="col-md-12 text-right">
+                    <a href="<?php echo $this->baseUrl('/projeto/cadastro'); ?>" class="btn btn-success"><i class="fa fa-fw fa-plus-square"></i> Novo Projeto</a>
+                </div>
+            </div>
+            <div class="row">
+                <div id="container">
+                    <div class="col-md-12">
+                        <?php if(isset($this->list) && !empty($this->list)){ ?>
+                            <table id="table" class="display" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nome</th>
+                                <th>Dono(a)</th>
+                                <th>Inicio da Vigência</th>
+                                <th>Status</th>
+                                <th>Data de Criação</th>
+                                <th>Ultima Atualização</th>
+                                <th>Ação</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach ($this->list as $projeto){
+                                switch (strtolower($projeto->status)){
+                                    case 'editando': $statusColor = 'gray'; break;
+                                    case 'enviado': $statusColor = 'blue'; break;
+                                    case 'inscrito': $statusColor = 'green'; break;
+                                    case 'credenciado': $statusColor = 'darkblue'; break;
+                                }
+                                ?>
+                                <tr>
+                                    <td><?php echo $projeto->id; ?></td>
+                                    <td><?php echo $projeto->nome; ?></td>
+                                    <td><?php echo $projeto->usuario; ?></td>
+                                    <td><?php echo $this->dateFormat($projeto->vigencia_inicio, 'd/m/Y'); ?></td>
+                                    <td><b style="color: <?php echo $statusColor; ?>"><?php echo strtoupper($projeto->status); ?></b></td>
+                                    <td><?php echo $this->dateFormat($projeto->created_at); ?></td>
+                                    <td><?php echo $this->dateFormat($projeto->updated_at); ?></td>
+                                    <td>
+                                        <a href="<?php echo $this->baseUrl('/projeto/detalhes/i/'. $projeto->id); ?>" class="btn btn-primary btn-sm my-tooltip" data-toggle="tooltip" title="Detalhes do Projeto">
+                                            <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>
+                                        </a>
+                                        &nbsp;
+                                        &nbsp;
+                                        <a href="<?php echo $this->baseUrl('/projeto/formulario/i/'. $projeto->id); ?>" class="btn btn-primary btn-sm my-tooltip" data-toggle="tooltip" title="Editar Projeto">
+                                            <i class="fa fa-edit fa-fw" aria-hidden="true"></i>
+                                        </a>
+                                        &nbsp;
+                                        &nbsp;
+                                        <span data-toggle="dropdown">
+                                            <a href="javascript:;" class="dropdown-toggle btn btn-primary btn-sm my-tooltip" data-toggle="tooltip" title="Alterar Status">
+                                                <i class="fa fa-fw fa-bookmark" aria-hidden="true"></i>
+                                            </a>
+                                        </span>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="<?php echo $this->baseUrl('/projeto/status/i/'. $projeto->id .'/s/1'); ?>">Editando</a></li>
+                                            <li><a href="<?php echo $this->baseUrl('/projeto/status/i/'. $projeto->id .'/s/2'); ?>">Enviado</a></li>
+                                            <li><a href="<?php echo $this->baseUrl('/projeto/status/i/'. $projeto->id .'/s/3'); ?>">Credenciado</a></li>
+                                            <li><a href="<?php echo $this->baseUrl('/projeto/status/i/'. $projeto->id .'/s/4'); ?>">Inscrito</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                        <?php } else { ?>
+                            <p class="text-center">Nenhum projeto inscrito ou credenciado no momento.</p>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#table').dataTable({
+        "order": [[ 0, 'desc' ]],
+        "language": { "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json" }
+    });
+</script>

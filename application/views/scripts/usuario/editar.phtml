@@ -52,6 +52,15 @@
                                 <input class="form-control" id="num_document" name="num_document" type="text" required="required" onkeyup="mascara(this, mcpf)" maxlength="14" value="<?php echo $this->dados['num_document']; ?>">
                             </div>
                         </div>
+                        <?php if($this->usuario['email'] == $this->dados['email']){ ?>
+                            <div class="form-group">
+                                <label class="form-label">Senha</label>
+                                <span class="help">obs. a senha deve conter no mínimo 6 caracteres</span>
+                                <div class="controls">
+                                    <input class="form-control" id="password" name="password" type="password" required="required" minlength="6">
+                                </div>
+                            </div>
+                        <?php } ?>
                     </div>
 
                     <div class="clearfix"></div>

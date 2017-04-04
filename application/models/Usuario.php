@@ -150,6 +150,8 @@ class Application_Model_Usuario extends Application_Model_BaseDum
                 'title' => 'Data de Atualização',
                 'type' => 'date',
                 'required' => false,
+                'default' => date('Y-m-d H:i:s'),
+                'auto' => true,
                 'form' => false,
             )
         );
