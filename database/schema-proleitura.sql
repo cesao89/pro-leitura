@@ -26,6 +26,46 @@ CREATE TABLE IF NOT EXISTS `profile` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
+-- Insert dos PROFILES
+INSERT INTO `profile` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES (1, 'gestor', 1, NOW(), NOW());
+INSERT INTO `profile` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES (2, 'proponente', 1, NOW(), NOW());
+
+-- Exportação de dados foi desmarcado.
+-- Copiando estrutura para tabela proleitura.user
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `profile_id` tinyint(1) unsigned NOT NULL,
+  `name` char(200) NOT NULL,
+  `email` char(200) NOT NULL,
+  `phone` char(15) NOT NULL,
+  `num_document` char(15) NOT NULL,
+  `password` char(100) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  KEY `FK_user_profile` (`profile_id`),
+  CONSTRAINT `FK_user_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+-- Insert do usuario ADMIN
+INSERT INTO `user` (`id`, `profile_id`, `name`, `email`, `phone`, `num_document`, `password`, `status`, `created_at`, `updated_at`) VALUES (1, 1, 'Administrador', 'administrador@prolivro.com.br', '1111111111', '11111111111', '4297f44b13955235245b2497399d7a93', 1, NOW(), NOW());
+
+-- Exportação de dados foi desmarcado.
+-- Copiando estrutura para tabela proleitura.projeto_status
+CREATE TABLE IF NOT EXISTS `projeto_status` (
+  `id` tinyint(2) unsigned NOT NULL AUTO_INCREMENT,
+  `status` char(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+-- Insert dos status PROJETO
+INSERT INTO `projeto_status` (`id`, `status`) VALUES (1, 'editando');
+INSERT INTO `projeto_status` (`id`, `status`) VALUES (2, 'enviado');
+INSERT INTO `projeto_status` (`id`, `status`) VALUES (3, 'credenciado');
+INSERT INTO `projeto_status` (`id`, `status`) VALUES (4, 'inscrito');
+
 -- Exportação de dados foi desmarcado.
 -- Copiando estrutura para tabela proleitura.projeto
 CREATE TABLE IF NOT EXISTS `projeto` (
@@ -162,38 +202,6 @@ CREATE TABLE IF NOT EXISTS `projeto_responsavel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Exportação de dados foi desmarcado.
--- Copiando estrutura para tabela proleitura.projeto_status
-CREATE TABLE IF NOT EXISTS `projeto_status` (
-  `id` tinyint(2) unsigned NOT NULL AUTO_INCREMENT,
-  `status` char(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
--- Exportação de dados foi desmarcado.
--- Copiando estrutura para tabela proleitura.user
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `profile_id` tinyint(1) unsigned NOT NULL,
-  `name` char(200) NOT NULL,
-  `email` char(200) NOT NULL,
-  `phone` char(15) NOT NULL,
-  `num_document` char(15) NOT NULL,
-  `password` char(100) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  KEY `FK_user_profile` (`profile_id`),
-  CONSTRAINT `FK_user_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
--- Exportação de dados foi desmarcado.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-
-
-
--- Insert do usuário ADMIN
-INSERT INTO `user` (`id`, `profile_id`, `name`, `email`, `phone`, `num_document`, `password`, `status`, `created_at`, `updated_at`) VALUES (1, 1, 'Administrador', 'administrador@prolivro.com.br', '1111111111', '11111111111', '4297f44b13955235245b2497399d7a93', 1, NOW(), NOW());
