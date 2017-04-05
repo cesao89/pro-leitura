@@ -126,8 +126,6 @@ class UsuarioController extends Zend_Controller_Action
                 $this->_helper->redirector('perfil', 'usuario');
         }
 
-
-
         $usuario = new Application_Model_Usuario();
 
         if ($this->session->usuario['profile'] != 'gestor')
@@ -184,7 +182,7 @@ class UsuarioController extends Zend_Controller_Action
             'email'         => (isset($param['email']) && !empty($param['email'])) ? $param['email'] : null,
             'phone'         => preg_replace('/\D/', '', $param['phone']),
             'num_document'  => preg_replace('/\D/', '', $param['num_document']),
-            'password'      => (isset($param['password']) && !empty($param['password'])) ? md5($param['password']) : null,
+            'password'      => (isset($param['password']) && !empty($param['password'])) ? $param['password'] : null,
             'status'        => (isset($param['status']) && !empty($param['status'])) ? $param['status'] : 1
         );
 
@@ -193,6 +191,7 @@ class UsuarioController extends Zend_Controller_Action
         $usuario = new Application_Model_Usuario();
         if(isset($param['i']) && !empty($param['i'])){
             unset($toSave['email']);
+            $toSave['password'] = md5($toSave['password']);
             $usuario->get($param['i']);
         }
 
