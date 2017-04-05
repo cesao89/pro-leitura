@@ -7,7 +7,7 @@ define('SITE_URL', 'http://localhost/');
 define('TITLE', 'Plataforma - Pró-Livro');
 
 // Debuga BaseDum
-define('DEBUG_BASEDUM', true);
+define('DEBUG_BASEDUM', false);
 
 // DB Conn
 define("DB_HOST", "");

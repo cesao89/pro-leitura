@@ -18,6 +18,12 @@ para a mesma pasta com o nome
 e configurar as informações em branco no 
 mesmo tais como.
 
+#### Endereço do Site
+```php
+define('SITE_URL', 'http://localhost/');
+```
+
+---
 #### Conexão de Banco de Dados
 Host, Usuário e Senha
 ```php
